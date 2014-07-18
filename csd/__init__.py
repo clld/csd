@@ -4,6 +4,13 @@ from clld.web.app import get_configurator
 from csd import models
 
 
+_ = lambda s: s
+_('Value')
+_('Values')
+_('Parameter')
+_('Parameters')
+
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """

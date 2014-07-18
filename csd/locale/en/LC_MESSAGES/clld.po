@@ -1,17 +1,17 @@
-# Translations template for csd.
+# English translations for PROJECT.
 # Copyright (C) 2014 ORGANIZATION
-# This file is distributed under the same license as the csd project.
+# This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: csd 0.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2014-07-17 18:24+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2014-07-17 17:59+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,17 +19,17 @@ msgstr ""
 
 #: csd/__init__.py:8
 msgid "Value"
-msgstr ""
+msgstr "Word"
 
 #: csd/__init__.py:9
 msgid "Values"
-msgstr ""
+msgstr "Words"
 
 #: csd/__init__.py:10
 msgid "Parameter"
-msgstr ""
+msgstr "Entry"
 
 #: csd/__init__.py:11
 msgid "Parameters"
-msgstr ""
+msgstr "Entries"
 
