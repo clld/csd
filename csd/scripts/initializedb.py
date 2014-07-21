@@ -20,46 +20,46 @@ SOURCES = {
     'AG': 'Albert S. Gatschet',
     'ASG': 'Albert S. Gatschet',
     'AWJ': 'A. Wesley Jones',
-    'B': '',
-    'C': '',
-    'DEC': '',
-    'DS': '',
+    'B': 'Eugene Buechel dictionary',
+    'C': 'RICHARD T. CARTER',
+    'DEC': 'DICTIONARY OF EVERYDAY CROW (GORDON/GRACZYK)',
+    'DS': 'DORSEY/SWANTON OFO DICTIONARY',
     'EB': 'Eugene Buechel',
     'EJ': 'Eli Jones (Lakota speaker)',
     'F + LF': 'Fletcher and Laflesche',
     'FLF': 'Fletcher and Laflesche',
     'Fontaine': 'Fontaine (Saponi word list)',
     'FS': 'Frank T. Siebert',
-    'GG': '',
-    'GK': '',
-    'G': '',
-    'GMsf': '',
-    'H': '',
-    'H&Vf': '',
+    'GG': 'GORDON AND GRACZYK',
+    'GK': 'GEOFFREY KIMBALL',
+    'G': 'GORDON? GILLMORE? GRACZYK?',
+    'GMsf': 'GORDON MARSH SOMETHING',
+    'H': 'ROBERT HOLLOW',
+    'H&Vf': 'HOLLOW AND ?? (ONLY ONE INSTANCE)',
     'H(N)': 'Hale, Nikonha',
     'H.': 'Horatio Hale',
-    'HWM': '',
-    'HH': '',
-    'J': '',
+    'HWM': 'WASHINGTON MATTHEWS 1877 HIDATSA GRAMMAR',
+    'HH': 'HORATIO HALE',
+    'J': 'A. WESLEY JONES',
     'JEK': 'John E. Koontz',
     'JGT': 'Jimm Good Tracks',
     'JOD': 'James Owen Dorsey',
-    'JWE': '',
+    'JWE': 'YES - WHITE EAGLE',
     'KM': 'Kenneth Miner',
     'KS': 'Kathy Shea or the Kansa language',
     'LB': 'Lew Ballard',
     'LF': 'Laflesche',
-    'Lawson': '',
-    'Lipkind': '',
+    'Lawson': 'JOHN LAWSON WOCCON VOCABULARY',
+    'Lipkind': 'WILLIAM LIPKIND WINNEBAGO GRAMMAR',
     'Lk': 'Lipkind',
     'LWR': 'Lila Wistrand Robinson',
     'Marsh': 'Gordon Marsh',
-    'M': '',
-    'mr': '',
-    'MS': '',
+    'M': 'GH MATTHEWS',
+    'mr': "SEEMS TO BE ONE OF BOB'S KANSA SPEAKERS - CK HIS DICTIONARY INTRO",
+    'MS': 'MAURICE SWADESH OR "MANUSCRIPT?"',
     'PAS': 'Pat Shaw',
-    'per': '',
-    'R': '',
+    'per': "ANOTHER KANSA SPEAKER -- SEE RANKIN'S DICTONARY INTRO??",
+    'R': 'STEPHEN R. RIGGS DICTIONARY',
     'RG': 'Randolph Graczyk',
     'RLR': 'Robert L. Rankin',
     'RR': 'Robert L. Rankin',
@@ -68,20 +68,20 @@ SOURCES = {
     'Sp.': 'Frank Speck',
     'Speck': 'Frank Speck',
     'Taylor': 'Allan R. Taylor',
-    'Ssf': '',
-    'SW': '',
-    'Wm': '',
-    'W': '',
+    'Ssf': 'SOMETHING WITH OFO DATA',
+    'SW': '?MARK SWETLAND DICTIONARY?',
+    'Wm': 'WILLIAMSON ENGLISH-DAKOT DICTIONARY',
+    'W': "CAN''T FIND IT -- WOLFF? WHITMAN?  NEED TO KNOW LANGUAGE",
     'Miller + Davis': 'Wick Miller and ? Davis',
     'IJAL': 'International Journal of American Linguistics',
     'Voorhis': 'Paul Voorhis',
     'Other Abbreviations': '',
     'Hw.': 'J.N.B. Hewitt',
     'OVS': 'Ohio Valley Siouan',
-    'MRS': '',
+    'MRS': 'MISSOURI RIVER SIOUAB',
     'PEA': 'Proto-Eastern Algonquian',
     'PUA': 'Proto-Uto Aztecan',
-    'PA': '',
+    'PA': 'PROTO-ALGONQUIAN',
     'MRH': 'Mary R. Haas',
 }
 
@@ -92,42 +92,55 @@ def normalize_sid(sid):
 for sid in list(SOURCES.keys()):
     SOURCES[normalize_sid(sid)] = SOURCES[sid]
 
-
+#
+# TODO: color-code lineages!
+#
 _LANGUAGES = [
-    ('psc', 'Proto-Siouan-Catawba', None, None),
-    ('psi', 'Proto-Siouan', 'sio', 'siou1252'),
-    ('pch', 'Proto-Crow-Hidatsa', None, None),
-    ('cr', 'Crow', 'cro', 'crow1244'),
-    ('hi', 'Hidatasa', 'hid', 'hida1246'),
-    ('pma', 'Proto-Mandan', None, None),
-    ('ma', 'Mandan', 'mhq', 'mand1446'),
-    ('pmv', 'Proto-Mississipi-Valley', None, None),
-    ('pda', 'Proto-Dakota', None, None),
-    ('la', 'Lakota', 'lkt', 'lako1247'),
-    ('da', 'Dakota', 'dak', 'dako1258'),
-    ('as', 'Assiniboine', 'asb', 'assi1247'),
-    ('ya', 'Yanktonai', 'dak', 'dako1258'),
-    ('sa', 'Santee-Sisseton', 'dak', 'dako1258'),
-    ('st', 'Stoney', 'sto', 'ston1242'),
-    ('sv', 'Sioux-Valley', None, None),
-    ('pwc', 'Proto-Hoocąk-Chiwere', None, None),
-    ('ch', 'Chiwere', 'iow', 'iowa1245'),
-    ('io', 'Ioway', 'iow', 'iowa1245'),
-    ('ot', 'Otoe', 'iow', 'iowa1245'),
-    ('wi', 'Hoocak', 'win', 'hoch1243'),
-    ('pdh', 'Proto-Dhegiha', None, None),
-    ('om', 'Omaha', 'oma', 'omah1247'),
-    ('op', 'Omaha-Ponca', 'oma', 'omah1247'),
-    ('pn', 'Ponca', 'oma', 'omah12477'),
-    ('po', 'Ponca', 'oma', 'omah1247'),
-    ('ks', 'Kanza/Kaw', 'ksk', 'kans1243'),
-    ('os', 'Osage', 'osa', 'osag1243'),
-    ('qu', 'Quapaw', 'qua', 'quap1242'),
-    ('bi', 'Biloxi', 'bll', 'bilo1248'),
-    ('of', 'Ofo', 'of', 'ofoo1242'),
-    ('tu', 'Tutelo', 'tu', 'tute1247'),
-    ('pca', 'Proto-Catawba', None, None),
-    ('ca', 'Catawba', 'chc', 'cata1286'),
+    ('psc', 'Proto-Siouan-Catawba', None, 'siou1252', 'f0fff0'),
+    ('psi', 'Proto-Siouan', 'sio', 'core1249', 'f0fff0'),
+
+    ('pch', 'Proto-Crow-Hidatsa', None, 'miss1252', '87ceff'),
+    ('cr', 'Crow', 'cro', 'crow1244', 'b0e2ff'),
+    ('hi', 'Hidatasa', 'hid', 'hida1246', 'b0e2ff'),
+
+    ('pma', 'Proto-Mandan', None, None, '7fff00'),
+    ('ma', 'Mandan', 'mhq', 'mand1446', 'c0ff3e'),
+
+    ('pmv', 'Proto-Mississipi-Valley', None, 'miss1254', 'f0fff0'),
+
+    ('pda', 'Proto-Dakota', None, 'dako1257', 'ff83fa'),
+    ('la', 'Lakota', 'lkt', 'lako1247', 'ffbbff'),
+    ('da', 'Dakota', 'dak', 'dako1258', 'ffbbff'),
+    ('as', 'Assiniboine', 'asb', 'assi1247', 'ffbbff'),
+    ('ya', 'Yanktonai', 'dak', 'dako1258', 'ffbbff'),
+    ('sa', 'Santee-Sisseton', 'dak', 'dako1258', 'ffbbff'),
+    ('st', 'Stoney', 'sto', 'ston1242', 'ffbbff'),
+    ('sv', 'Sioux-Valley', None, None, 'ffbbff'),
+
+    ('pwc', 'Proto-Hoocąk-Chiwere', None, 'winn1245', 'ff0000'),
+    ('ch', 'Chiwere', 'iow', 'iowa1245', 'ff4500'),
+    ('io', 'Ioway', 'iow', 'iowa1245', 'ff4500'),
+    ('ot', 'Otoe', 'iow', 'iowa1245', 'ff4500'),
+    ('wi', 'Hoocąk', 'win', 'hoch1243', 'ff4500'),
+
+    ('pdh', 'Proto-Dhegiha', None, 'dheg1241', 'ffff00'),
+    ('om', 'Omaha', 'oma', 'omah1247', 'fff68f'),
+    ('op', 'Omaha-Ponca', 'oma', 'omah1247', 'fff68f'),
+    ('pn', 'Ponca', 'oma', 'omah12477', 'fff68f'),
+    ('po', 'Ponca', 'oma', 'omah1247', 'fff68f'),
+    ('ks', 'Kanza/Kaw', 'ksk', 'kans1243', 'fff68f'),
+    ('os', 'Osage', 'osa', 'osag1243', 'fff68f'),
+    ('qu', 'Quapaw', 'qua', 'quap1242', 'fff68f'),
+
+    ('pbo', 'Proto-Biloxi-Ofo', None, 'bilo1247', 'ffb90f'),
+    ('bi', 'Biloxi', 'bll', 'bilo1248', 'ffd700'),
+    ('of', 'Ofo', 'ofo', 'ofoo1242', 'ffd700'),
+    ('tu', 'Tutelo', 'tta', 'tute1247', 'ffd700'),
+    ('sp', 'Saponi', 'tta', 'tute1247', 'ffd700'),
+
+    ('pca', 'Proto-Catawba', None, 'cata1285', 'b5b5b5'),
+    ('ca', 'Catawba', 'chc', 'cata1286', 'b5b5b5'),
+    ('wo', 'Woccon', 'xwc', 'wocc1242', 'b5b5b5'),
 ]
 LANGUAGES = {t[0]: list(t)[1:] for t in _LANGUAGES}
 
@@ -155,6 +168,10 @@ class CsdEntry(Entry):
                         data = defaultdict(list)
                         data.update(language=lang, forms=None)
                     data[match.group('key')].append(v)
+                else:
+                    if k == 'or':
+                        if data:
+                            data['or'].append(v)
         if data and data.get('forms'):
             yield data
 
@@ -213,6 +230,8 @@ def main(args):
             id=v[0],
             name=v[1],
             ord=i,
+            color=v[4],
+            proto=v[1].startswith('Proto-'),
             latitude=geocoords[v[2]][0],
             longitude=geocoords[v[2]][1])
         if v[2]:
@@ -251,18 +270,19 @@ def main(args):
 
             for j, d in enumerate(words):
                 _l = lambda _m: d.get(m, [])
-                k = None
+                looped = False
+
                 for k, t in enumerate(izip_longest(
                         *[d.get(_m, []) for _m in '_ih oo me so cm'.split()])):
                     ih, oo, me, so, cm = t
                     oo = oo or ih
                     if not oo:
-                        oo = d['forms']
-
+                        continue
+                    looped = True
                     m = models.Counterpart(
                         id='%s-%s-%s' % (vsid, j + 1, k + 1),
-                        name=oo,
-                        cognate=d['forms'],
+                        name=d['forms'] or oo,
+                        altform=oo if d['forms'] else None,
                         description=me,
                         comment=cm,
                         valueset=vs)
@@ -283,15 +303,53 @@ def main(args):
                             )
                         m.references.append(models.ValueReference(
                             source=source, description=match.group('pages')))
-                if k is None:
+                if not looped:
+                    def _get(d, marker):
+                        _l = set(nfilter(d.get(marker, [])))
+                        if _l:
+                            return list(_l)
                     # loop was not run!
+                    if not d['forms']:
+                        print(d)
+                        raise ValueError()
+                    me = _get(d, 'me')
+                    if me:
+                        if len(me) > 1:
+                            print d
+                        me = me[0]
+                    cm = _get(d, 'cm')
+                    if cm:
+                        assert len(cm) == 1
+                        cm = cm[0]
                     m = models.Counterpart(
                         id='%s-%s-%s' % (vsid, j + 1, 1),
                         name=d['forms'],
-                        cognate=d['forms'],
-                        description=None,
-                        comment=None,
+                        altform='; '.join(_get(d, 'or') or []) or None,
+                        description=me,
+                        comment=cm,
                         valueset=vs)
+                    so = _get(d, 'so')
+                    if so:
+                        if len(so) > 1:
+                            print d
+                        so = so[0]
+                        for sid in nfilter([s.strip() for s in SEP_PATTERN.split(so or '')]):
+                            match = SID_PATTERN.match(sid)
+                            if not match:
+                                #print sid
+                                continue
+
+                            name = sid
+                            sid = normalize_sid(match.group('key'))
+                            source = data['Source'].get(sid)
+                            if not source:
+                                source = data.add(
+                                    common.Source, sid,
+                                    id=sid,
+                                    name=SOURCES.get(sid) or name,
+                                )
+                            m.references.append(models.ValueReference(
+                                source=source, description=match.group('pages')))
 
 
 def prime_cache(args):

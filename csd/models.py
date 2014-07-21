@@ -24,6 +24,8 @@ from clld.db.models.common import Value, HasSourceMixin, Language, Parameter
 class Languoid(Language, CustomModelMixin):
     pk = Column(Integer, ForeignKey('language.pk'), primary_key=True)
     ord = Column(Integer)
+    color = Column(String)
+    proto = Column(Boolean, default=False)
 
 
 @implementer(interfaces.IParameter)
@@ -36,7 +38,7 @@ class Entry(Parameter, CustomModelMixin):
 @implementer(interfaces.IValue)
 class Counterpart(Value, CustomModelMixin):
     pk = Column(Integer, ForeignKey('value.pk'), primary_key=True)
-    cognate = Column(Unicode)
+    altform = Column(Unicode)
     comment = Column(Unicode)
 
 

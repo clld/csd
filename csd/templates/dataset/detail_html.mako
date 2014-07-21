@@ -8,7 +8,7 @@
     </%util:well>
 </%def>
 
-<h2>The Comparative Siouan Dictionary</h2>
+<h2>Comparative Siouan Dictionary</h2>
 
 <p class="lead">
     Compiled by:
