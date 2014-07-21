@@ -33,4 +33,5 @@ def main(global_config, **settings):
     config.include('clldmpg')
     config.include('csd.datatables')
     config.include('csd.adapters')
+    config.include('csd.maps')
     return config.make_wsgi_app()

@@ -1,5 +1,5 @@
 <p class='entry'>
-    <b style="font-size: larger">${ctx.name}</b><br/>
+    ##<b style="font-size: larger">${ctx.name}</b><br/>
     % if ctx.ps:
         <i>${ctx.ps}</i>
     % endif
@@ -11,11 +11,11 @@
         % if vs.language.proto:
         <br/>
         % endif
-        <span style="font-variant: small-caps; color: ${'blue' if vs.language.proto else 'green'}">${vs.language.name}</span>
+        <span style="font-variant: small-caps; background-color: #${vs.language.color};">${vs.language.name}</span>
         % for value in vs.values:
-            <i>${value.name}</i>
+            ${u.markup_form(value.name)}
             % if value.altform:
-                <span>“${value.altform}”</span>
+                <span>“${u.markup_form(value.altform)}”</span>
             % endif
             % if value.description:
             <span>‘${value.description}’</span>

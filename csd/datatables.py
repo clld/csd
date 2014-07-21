@@ -1,3 +1,5 @@
+import re
+
 from sqlalchemy.orm import joinedload
 
 from clld.web.datatables.base import Col, LinkCol, LinkToMapCol, DetailsRowLinkCol
@@ -10,6 +12,7 @@ from clld.db.util import get_distinct_values, icontains
 from clld.db.models.common import ValueSet, Value, Language, Parameter
 
 from csd.models import Counterpart, Languoid, Entry
+from csd.util import markup_form
 
 
 class RefsCol(Col):
@@ -61,9 +64,10 @@ class Counterparts(Values):
         if self.language:
             return [
                 LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name),
-                Col(self, 'name', sTitle='Cognate'),
+                Col(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
                 Col(self, 'altform',
-                    model_col=Counterpart.altform, sTitle='Alternative form'),
+                    model_col=Counterpart.altform, sTitle='Alternative form',
+                    format=lambda i: markup_form(i.altform)),
                 Col(self, 'description', sTitle='Meaning'),
                 Col(self, 'comment', model_col=Counterpart.comment),
                 RefsCol(self, 'sources'),
@@ -72,9 +76,10 @@ class Counterparts(Values):
             return [
                 LanguageCol(
                     self, 'language', model_col=Language.name, get_object=get_lang),
-                Col(self, 'name', sTitle='Cognate'),
+                Col(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
                 Col(self, 'altform',
-                    model_col=Counterpart.altform, sTitle='Alternative form'),
+                    model_col=Counterpart.altform, sTitle='Alternative form',
+                    format=lambda i: markup_form(i.altform)),
                 Col(self, 'description', sTitle='Meaning'),
                 Col(self, 'comment', model_col=Counterpart.comment),
                 RefsCol(self, 'sources'),
@@ -82,9 +87,10 @@ class Counterparts(Values):
         return [
             LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name),
             LanguageCol(self, 'language', model_col=Language.name, get_object=get_lang),
-            Col(self, 'name', sTitle='Cognate'),
+            Col(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
             Col(self, 'altform',
-                model_col=Counterpart.altform, sTitle='Alternative form'),
+                model_col=Counterpart.altform, sTitle='Alternative form',
+                format=lambda i: markup_form(i.altform)),
             Col(self, 'description', sTitle='Meaning'),
             Col(self, 'comment', model_col=Counterpart.comment),
         ]
