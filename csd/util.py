@@ -19,7 +19,7 @@ def markup_form(s):
     pos = 0
     for match in META_LANG_PATTERN.finditer(s):
         parts.append(HTML.i(s[pos:match.start()]))
-        parts.append(match.group('word'))
+        parts.append(match.group('word') + ':')
         pos = match.end()
     parts.append(HTML.i(s[pos:]))
     return HTML.span(*parts)

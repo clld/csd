@@ -5,7 +5,9 @@ from collections import defaultdict
 import re
 from itertools import izip_longest
 
-from clld.scripts.util import initializedb, Data, add_language_codes, glottocodes_by_isocode
+from clld.scripts.util import (
+    initializedb, Data, add_language_codes, glottocodes_by_isocode,
+)
 from clld.db.meta import DBSession
 from clld.db.models import common
 from clld.lib.sfm import Dictionary, Entry
@@ -13,77 +15,7 @@ from clld.util import nfilter, slug
 
 import csd
 from csd import models
-
-
-SOURCES = {
-    'N': 'Nikonha (Tutelo informant)',
-    'AG': 'Albert S. Gatschet',
-    'ASG': 'Albert S. Gatschet',
-    'AWJ': 'A. Wesley Jones',
-    'B': 'Eugene Buechel dictionary',
-    'C': 'RICHARD T. CARTER',
-    'DEC': 'DICTIONARY OF EVERYDAY CROW (GORDON/GRACZYK)',
-    'DS': 'DORSEY/SWANTON OFO DICTIONARY',
-    'EB': 'Eugene Buechel',
-    'EJ': 'Eli Jones (Lakota speaker)',
-    'F + LF': 'Fletcher and Laflesche',
-    'FLF': 'Fletcher and Laflesche',
-    'Fontaine': 'Fontaine (Saponi word list)',
-    'FS': 'Frank T. Siebert',
-    'GG': 'GORDON AND GRACZYK',
-    'GK': 'GEOFFREY KIMBALL',
-    'G': 'GORDON? GILLMORE? GRACZYK?',
-    'GMsf': 'GORDON MARSH SOMETHING',
-    'H': 'ROBERT HOLLOW',
-    'H&Vf': 'HOLLOW AND ?? (ONLY ONE INSTANCE)',
-    'H(N)': 'Hale, Nikonha',
-    'H.': 'Horatio Hale',
-    'HWM': 'WASHINGTON MATTHEWS 1877 HIDATSA GRAMMAR',
-    'HH': 'HORATIO HALE',
-    'J': 'A. WESLEY JONES',
-    'JEK': 'John E. Koontz',
-    'JGT': 'Jimm Good Tracks',
-    'JOD': 'James Owen Dorsey',
-    'JWE': 'YES - WHITE EAGLE',
-    'KM': 'Kenneth Miner',
-    'KS': 'Kathy Shea or the Kansa language',
-    'LB': 'Lew Ballard',
-    'LF': 'Laflesche',
-    'Lawson': 'JOHN LAWSON WOCCON VOCABULARY',
-    'Lipkind': 'WILLIAM LIPKIND WINNEBAGO GRAMMAR',
-    'Lk': 'Lipkind',
-    'LWR': 'Lila Wistrand Robinson',
-    'Marsh': 'Gordon Marsh',
-    'M': 'GH MATTHEWS',
-    'mr': "SEEMS TO BE ONE OF BOB'S KANSA SPEAKERS - CK HIS DICTIONARY INTRO",
-    'MS': 'MAURICE SWADESH OR "MANUSCRIPT?"',
-    'PAS': 'Pat Shaw',
-    'per': "ANOTHER KANSA SPEAKER -- SEE RANKIN'S DICTONARY INTRO??",
-    'R': 'STEPHEN R. RIGGS DICTIONARY',
-    'RG': 'Randolph Graczyk',
-    'RLR': 'Robert L. Rankin',
-    'RR': 'Robert L. Rankin',
-    'RTC': 'Richard T. Carter',
-    'RTG': 'Randolph Graczyk',
-    'Sp.': 'Frank Speck',
-    'Speck': 'Frank Speck',
-    'Taylor': 'Allan R. Taylor',
-    'Ssf': 'SOMETHING WITH OFO DATA',
-    'SW': '?MARK SWETLAND DICTIONARY?',
-    'Wm': 'WILLIAMSON ENGLISH-DAKOT DICTIONARY',
-    'W': "CAN''T FIND IT -- WOLFF? WHITMAN?  NEED TO KNOW LANGUAGE",
-    'Miller + Davis': 'Wick Miller and ? Davis',
-    'IJAL': 'International Journal of American Linguistics',
-    'Voorhis': 'Paul Voorhis',
-    'Other Abbreviations': '',
-    'Hw.': 'J.N.B. Hewitt',
-    'OVS': 'Ohio Valley Siouan',
-    'MRS': 'MISSOURI RIVER SIOUAB',
-    'PEA': 'Proto-Eastern Algonquian',
-    'PUA': 'Proto-Uto Aztecan',
-    'PA': 'PROTO-ALGONQUIAN',
-    'MRH': 'Mary R. Haas',
-}
+from csd.scripts.util import PS, SD, SOURCES
 
 
 def normalize_sid(sid):
@@ -91,6 +23,15 @@ def normalize_sid(sid):
 
 for sid in list(SOURCES.keys()):
     SOURCES[normalize_sid(sid)] = SOURCES[sid]
+
+
+def normalize_comma_separated(s, d, lower=False):
+    if not s:
+        return
+    chunks = nfilter([_s.strip() for _s in s.split(',')])
+    return ', '.join(
+        d.get(_s.lower(), _s.lower() if lower else _s) for _s in chunks)
+
 
 #
 # TODO: color-code lineages!
@@ -220,8 +161,7 @@ def main(args):
         args.data_file('CSD_RLR_Master_version_17.txt'),
         entry_impl=CsdEntry,
         entry_sep='\\lx ')
-    print(len(d.entries))
-    d.entries = list(filter(lambda r: r.get('lx'), d.entries))
+    d.entries = list(filter(lambda r: r.get('lx'), d.entries))[1:]
     print(len(d.entries))
 
     for i, v in enumerate(_LANGUAGES):
@@ -256,8 +196,8 @@ def main(args):
             id=str(i + 1),
             name=pname,
             description=entry.get('com'),
-            sd=entry.get('sd'),
-            ps=entry.get('ps'))
+            sd=normalize_comma_separated(entry.get('sd'), SD, lower=True),
+            ps=normalize_comma_separated(entry.get('ps'), PS))
 
         for lid, words in entry.get_words().items():
             vsid = '%s-%s' % (lid, meaning.id)
@@ -357,8 +297,9 @@ def prime_cache(args):
     This procedure should be separate from the db initialization, because
     it will have to be run periodically whenever data has been updated.
     """
+    #freeze_func(args)
 
 
 if __name__ == '__main__':
-    initializedb(create=main, prime_cache=prime_cache)
+    initializedb(create=main, prime_cache=prime_cache, bootstrap=True)
     sys.exit(0)
