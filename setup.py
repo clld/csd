@@ -4,7 +4,6 @@ from setuptools import setup, find_packages
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
 
 requires = [
     'clld',
@@ -19,10 +18,15 @@ requires = [
     'waitress',
     ]
 
+tests_require = [
+    'WebTest >= 1.3.1', # py3 compat
+    'mock',
+]
+
 setup(name='csd',
       version='0.0',
       description='csd',
-      long_description=README,
+      long_description='',
       classifiers=[
         "Programming Language :: Python",
         "Framework :: Pyramid",
@@ -37,7 +41,7 @@ setup(name='csd',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
-      tests_require=requires,
+      tests_require=tests_require,
       test_suite="csd",
       entry_points="""\
 [paste.app_factory]

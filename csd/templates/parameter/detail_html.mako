@@ -10,6 +10,7 @@
 </div>
 
 % if ctx.description:
+<h4>Comment</h4>
 <p>${u.insert_language_links(request, ctx.description, languages)|n}</p>
 % endif
 
