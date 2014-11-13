@@ -158,7 +158,7 @@ def main(args):
         dataset.editors.append(common.Editor(contributor=c, ord=i, primary=primary))
 
     d = Dictionary(
-        args.data_file('CSD_RLR_Master_version_17.txt'),
+        args.data_file('CSD_RLR_Master_version_20_OK.txt'),
         entry_impl=CsdEntry,
         entry_sep='\\lx ')
     d.entries = list(filter(lambda r: r.get('lx'), d.entries))[1:]
@@ -251,7 +251,8 @@ def main(args):
                     # loop was not run!
                     if not d['forms']:
                         print(d)
-                        raise ValueError()
+                        continue
+                        #raise ValueError()
                     me = _get(d, 'me')
                     if me:
                         if len(me) > 1:

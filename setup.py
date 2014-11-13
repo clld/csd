@@ -6,8 +6,8 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 
 requires = [
-    'clld',
-    'clldmpg',
+    'clld>=0.19.1',
+    'clldmpg>=0.5',
     'pyramid',
     'SQLAlchemy',
     'transaction',
@@ -29,6 +29,9 @@ setup(name='csd',
       long_description='',
       classifiers=[
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
