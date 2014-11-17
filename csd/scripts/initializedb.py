@@ -223,7 +223,7 @@ def main(args):
                         id='%s-%s-%s' % (vsid, j + 1, k + 1),
                         name=d['forms'] or oo,
                         altform=oo if d['forms'] else None,
-                        description=me,
+                        description=me or '[%s]' % vs.parameter.name,
                         comment=cm,
                         valueset=vs)
                     for sid in nfilter([s.strip() for s in SEP_PATTERN.split(so or '')]):
@@ -266,7 +266,7 @@ def main(args):
                         id='%s-%s-%s' % (vsid, j + 1, 1),
                         name=d['forms'],
                         altform='; '.join(_get(d, 'or') or []) or None,
-                        description=me,
+                        description=me or '[%s]' % vs.parameter.name,
                         comment=cm,
                         valueset=vs)
                     so = _get(d, 'so')

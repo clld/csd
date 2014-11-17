@@ -46,7 +46,26 @@ class Languoids(Languages):
         ]
 
 
+class CognateCol(LinkCol):
+    __kw__ = {'sTitle': 'Cognate'}
+
+    def get_attrs(self, item):
+        return dict(label=markup_form(item.name))
+
+    def search(self, qs):
+        return icontains(Value.name, qs)
+
+    def order(self):
+        return Value.name
+
+
 class Counterparts(Values):
+    def get_options(self):
+        opts = super(Values, self).get_options()
+        if not self.language:
+            opts['aaSorting'] = [[0, 'asc'], [1, 'asc']]
+        return opts
+
     def base_query(self, query):
         query = Values.base_query(self, query)
         if not self.language and not self.parameter:
@@ -64,7 +83,7 @@ class Counterparts(Values):
         if self.language:
             return [
                 LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name),
-                Col(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
+                CognateCol(self, 'name', get_object=lambda i: i.valueset),
                 Col(self, 'altform',
                     model_col=Counterpart.altform, sTitle='Alternative form',
                     format=lambda i: markup_form(i.altform)),
