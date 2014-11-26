@@ -21,7 +21,7 @@ from clld.db.models.common import Value, HasSourceMixin, Language, Parameter
 # specialized common mapper classes
 #-----------------------------------------------------------------------------
 @implementer(interfaces.ILanguage)
-class Languoid(Language, CustomModelMixin):
+class Languoid(CustomModelMixin, Language):
     pk = Column(Integer, ForeignKey('language.pk'), primary_key=True)
     ord = Column(Integer)
     color = Column(String)
@@ -29,14 +29,14 @@ class Languoid(Language, CustomModelMixin):
 
 
 @implementer(interfaces.IParameter)
-class Entry(Parameter, CustomModelMixin):
+class Entry(CustomModelMixin, Parameter):
     pk = Column(Integer, ForeignKey('parameter.pk'), primary_key=True)
     ps = Column(Unicode)
     sd = Column(Unicode)
 
 
 @implementer(interfaces.IValue)
-class Counterpart(Value, CustomModelMixin):
+class Counterpart(CustomModelMixin, Value):
     pk = Column(Integer, ForeignKey('value.pk'), primary_key=True)
     altform = Column(Unicode)
     comment = Column(Unicode)
