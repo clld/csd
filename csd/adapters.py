@@ -17,32 +17,14 @@ from clld.interfaces import IRepresentation
 from clld.interfaces import IParameter
 from clld.web.adapters.geojson import GeoJsonParameter
 from clld.web.adapters.download import Download
+from clld.web.util.helpers import charis_font_spec_css
 
 from csd.util import markup_form
 import csd
 
 
 css_tmpl = """
-    @font-face {{
-        font-family: 'charissil';
-        src: url('{0}/CharisSIL-R.ttf');
-    }}
-    @font-face {{
-        font-family: 'charissil';
-        font-style: italic;
-        src: url('{0}/CharisSIL-I.ttf');
-    }}
-    @font-face {{
-        font-family: 'charissil';
-        font-weight: bold;
-        src: url('{0}/CharisSIL-B.ttf');
-    }}
-    @font-face {{
-        font-family: 'charissil';
-        font-weight: bold;
-        font-style: italic;
-        src: url('{0}/CharisSIL-BI.ttf');
-    }}
+    {0}
 
     html,body {{
         font-family: 'charissil';
@@ -112,12 +94,10 @@ class Pdf(Download):
             html.append(adapter.render(entry, req))
             html.append('<p class="separator">&nbsp;<p>')
     
-        ttf = os.path.abspath(
-            os.path.join(os.path.dirname(csd.__file__), 'static', 'charissil'))
         with open(self.abspath(req), 'wb') as fp:
             pisa.CreatePDF(
                 html_tmpl % (
-                    css_tmpl.format(ttf),
+                    css_tmpl.format(charis_font_spec_css()),
                     req.dataset.name,
                     """
 <h1 style="font-size: 12mm;">%s</h1>
