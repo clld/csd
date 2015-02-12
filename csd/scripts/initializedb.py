@@ -96,7 +96,7 @@ class CsdEntry(Entry):
         data = defaultdict(list)
         for k, v in self:
             if k in LANGUAGES:
-                if data and data.get('forms'):
+                if data.get('forms') or data.get('oo') or data.get('_ih'):
                     yield data
                 data = defaultdict(list)
                 data.update(language=k, forms=v)
@@ -113,7 +113,7 @@ class CsdEntry(Entry):
                     if k == 'or':
                         if data:
                             data['or'].append(v)
-        if data and data.get('forms'):
+        if data.get('forms') or data.get('oo') or data.get('_ih'):
             yield data
 
     def get_words(self):
@@ -134,6 +134,7 @@ def main(args):
             cols=['id', 'latitude', 'longitude']).items():
         glottocodes[k] = v[0]
         geocoords[k] = (v[1], v[2])
+    geocoords['win'] = (43.50, -88.50)
 
     dataset = common.Dataset(
         id=csd.__name__,
@@ -158,7 +159,7 @@ def main(args):
         dataset.editors.append(common.Editor(contributor=c, ord=i, primary=primary))
 
     d = Dictionary(
-        args.data_file('CSD_RLR_Master_version_20_OK.txt'),
+        args.data_file('CSD_RLR_Master_version_20_clean.txt'),
         entry_impl=CsdEntry,
         entry_sep='\\lx ')
     d.entries = list(filter(lambda r: r.get('lx'), d.entries))[1:]
@@ -177,22 +178,19 @@ def main(args):
         if v[2]:
             add_language_codes(data, l, v[2], glottocodes=glottocodes)
 
-    pnames = defaultdict(int)
-    for i, entry in enumerate(d.entries):
-        pnames[entry.get('lx')] += 1
-
-    disambiguation_numbers = defaultdict(int)
-
-    for i, entry in enumerate(d.entries):
+    pnames = set()
+    for i, entry in enumerate(sorted(d.entries, key=lambda d: d.get('lx'), reverse=True)):
         lemma = entry.get('lx')
-        if not lemma:
+        if not lemma or not lemma.strip():
             continue
         pname = lemma
-        if pnames[lemma] > 1:
-            disambiguation_numbers[lemma] += 1
-            pname += ' (%s)' % disambiguation_numbers[lemma]
+        j = 1
+        while pname in pnames:
+            pname = '%s (%s)' % (lemma, j)
+            j += 1
+        pnames.add(pname)
         meaning = data.add(
-            models.Entry, lemma,
+            models.Entry, pname,
             id=str(i + 1),
             name=pname,
             description=entry.get('com'),

@@ -8,7 +8,7 @@ SOURCES = {
     'DEC': 'DICTIONARY OF EVERYDAY CROW (GORDON/GRACZYK)',
     'DS': 'DORSEY/SWANTON OFO DICTIONARY',
     'EB': 'Eugene Buechel',
-    'EJ': 'Eli Jones (Lakota speaker)',
+    'EJ': 'Eli James (Lakota speaker)',
     'F + LF': 'Fletcher and Laflesche',
     'FLF': 'Fletcher and Laflesche',
     'Fontaine': 'Fontaine (Saponi word list)',
