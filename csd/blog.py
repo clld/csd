@@ -32,9 +32,15 @@ class Blog(object):
         prefix = 'value' if isinstance(obj, Counterpart) else 'parameter'
         return '{0}-{1.id}/'.format(prefix, obj)
 
+    def _post_url(self, obj):
+        try:
+            return requests.get(self.url(self.slug(obj)), timeout=1)
+        except requests.Timeout:
+            return
+
     def post_url(self, obj, req, create=False):
-        res = self.url(self.slug(obj))
-        if create and not self.wp.get_post_id_from_path(res):
+        res = self._post_url(obj)
+        if create and (not res or not self.wp.get_post_id_from_path(None, res=res)):
             # create categories if missing:
             languageCat, entryCat = None, None
 
@@ -60,13 +66,11 @@ class Blog(object):
                 categories=categories,
                 published=True,
                 wp_slug=self.slug(obj))
-        return res
+        return res.url
 
     def feed_url(self, obj, req):
         if isinstance(obj, string_types):
             return self.url(obj)
-        try:
-            res = requests.get(self.url(self.slug(obj)), timeout=0.8)
+        res = self._post_url(obj)
+        if res:
             return res.url + 'feed'
-        except requests.Timeout:
-            return
