@@ -7,7 +7,10 @@
     <li><a href="#map-container"><span class="icon-globe"> </span> Map</a></li>
     <li><a href="#words"><span class="icon-list"> </span> Words</a></li>
     <li style="padding-top: 3px; padding-right: 3px;">
-        ${h.cite_button(request, request.dataset)}
+        ${h.cite_button(request, ctx.contribution)}
+    </li>
+    <li style="padding-top: 3px; padding-right: 3px;">
+        ${u.comment_button(request, ctx)}
     </li>
     <li style="padding-top: 3px; padding-right: 3px;">
         ${h.alt_representations(request, ctx, doc_position='left')}

@@ -146,7 +146,8 @@ def main(args):
     dataset = common.Dataset(
         id=csd.__name__,
         name="Comparative Siouan Dictionary",
-        publisher_name ="Max Planck Institute for Evolutionary Anthropology",
+        description="Comparative Siouan Dictionary",
+        publisher_name="Max Planck Institute for Evolutionary Anthropology",
         publisher_place="Leipzig",
         publisher_url="http://www.eva.mpg.de",
         license="http://creativecommons.org/licenses/by/3.0/",
@@ -196,10 +197,13 @@ def main(args):
             pname = '%s (%s)' % (lemma, j)
             j += 1
         pnames.add(pname)
+        contrib = data.add(
+            common.Contribution, pname, id=str(i + 1), name='Entry "%s"' % pname)
         meaning = data.add(
             models.Entry, pname,
             id=str(i + 1),
             name=pname,
+            contribution=contrib,
             description=entry.get('com'),
             sd=normalize_comma_separated(entry.get('sd'), SD, lower=True),
             ps=normalize_comma_separated(entry.get('ps'), PS))

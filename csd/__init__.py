@@ -1,8 +1,9 @@
 from clld.web.app import get_configurator, MapMarker
-from clld.interfaces import IMapMarker, IValue, IValueSet, ILanguage
+from clld.interfaces import IMapMarker, IValue, IValueSet, ILanguage, IBlog
 
 # we must make sure custom models are known at database initialization!
 from csd import models
+from csd.blog import Blog
 
 
 _ = lambda s: s
@@ -29,9 +30,15 @@ class CsdMapMarker(MapMarker):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    config = get_configurator('csd', (CsdMapMarker(), IMapMarker), settings=settings)
+    utilities = [
+        (CsdMapMarker(), IMapMarker),
+        (Blog(settings), IBlog),
+        ]
+
+    config = get_configurator('csd', *utilities, **dict(settings=settings))
     config.include('clldmpg')
     config.include('csd.datatables')
     config.include('csd.adapters')
     config.include('csd.maps')
+    config.add_route('comment', '/comment/{type}/{id}')
     return config.make_wsgi_app()

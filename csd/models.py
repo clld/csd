@@ -14,7 +14,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin
-from clld.db.models.common import Value, HasSourceMixin, Language, Parameter
+from clld.db.models.common import Value, HasSourceMixin, Language, Parameter, Contribution
 
 
 #-----------------------------------------------------------------------------
@@ -33,6 +33,8 @@ class Entry(CustomModelMixin, Parameter):
     pk = Column(Integer, ForeignKey('parameter.pk'), primary_key=True)
     ps = Column(Unicode)
     sd = Column(Unicode)
+    contribution_pk = Column(Integer, ForeignKey('contribution.pk'))
+    contribution = relationship(Contribution)
 
 
 @implementer(interfaces.IValue)
