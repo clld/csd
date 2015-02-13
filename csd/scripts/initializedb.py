@@ -5,11 +5,14 @@ from collections import defaultdict
 import re
 from itertools import izip_longest
 
+from sqlalchemy import Index
+
 from clld.scripts.util import (
     initializedb, Data, add_language_codes, glottocodes_by_isocode,
 )
 from clld.db.meta import DBSession
 from clld.db.models import common
+from clld.db.util import with_collkey_ddl, collkey
 from clld.lib.sfm import Dictionary, Entry
 from clld.util import nfilter, slug
 
@@ -126,7 +129,11 @@ class CsdEntry(Entry):
         return res
 
 
+with_collkey_ddl()
+
+
 def main(args):
+    Index('ducet', collkey(common.Value.name)).create(DBSession.bind)
     data = Data()
     glottocodes, geocoords = {}, defaultdict(lambda: (None, None))
     for k, v in glottocodes_by_isocode(
@@ -159,7 +166,7 @@ def main(args):
         dataset.editors.append(common.Editor(contributor=c, ord=i, primary=primary))
 
     d = Dictionary(
-        args.data_file('CSD_RLR_Master_version_20_clean.txt'),
+        args.data_file('CSD_RLR_Master_version_21.txt'),
         entry_impl=CsdEntry,
         entry_sep='\\lx ')
     d.entries = list(filter(lambda r: r.get('lx'), d.entries))[1:]

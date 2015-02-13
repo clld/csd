@@ -8,7 +8,7 @@ from clld.web.datatables.language import Languages
 from clld.web.datatables.parameter import Parameters
 from clld.web.util.helpers import linked_references, map_marker_img
 from clld.web.util.htmllib import HTML
-from clld.db.util import get_distinct_values, icontains
+from clld.db.util import get_distinct_values, icontains, collkey
 from clld.db.models.common import ValueSet, Value, Language, Parameter
 
 from csd.models import Counterpart, Languoid, Entry
@@ -56,7 +56,7 @@ class CognateCol(LinkCol):
         return icontains(Value.name, qs)
 
     def order(self):
-        return Value.name
+        return collkey(Value.name)
 
 
 class Counterparts(Values):
@@ -95,7 +95,7 @@ class Counterparts(Values):
             return [
                 LanguageCol(
                     self, 'language', model_col=Language.name, get_object=get_lang),
-                Col(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
+                CognateCol(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
                 Col(self, 'altform',
                     model_col=Counterpart.altform, sTitle='Alternative form',
                     format=lambda i: markup_form(i.altform)),
@@ -106,7 +106,7 @@ class Counterparts(Values):
         return [
             LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name),
             LanguageCol(self, 'language', model_col=Language.name, get_object=get_lang),
-            Col(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
+            CognateCol(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
             Col(self, 'altform',
                 model_col=Counterpart.altform, sTitle='Alternative form',
                 format=lambda i: markup_form(i.altform)),
@@ -116,6 +116,11 @@ class Counterparts(Values):
 
 
 class Entries(Parameters):
+    def get_options(self):
+        opts = super(Parameters, self).get_options()
+        opts['aaSorting'] = [[1, 'asc'], [3, 'asc']]
+        return opts
+
     def col_defs(self):
         return [
             DetailsRowLinkCol(self, 'more'),
