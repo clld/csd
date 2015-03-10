@@ -122,6 +122,19 @@ class Counterparts(Values):
             core
 
 
+class SemanticDomainCol(Col):
+    def __init__(self, dt, name, **kw):
+        kw['choices'] = [(sd, sd.replace('_', ' ')) for sd in get_distinct_values(Entry.sd)]
+        kw['model_col'] = Entry.sd
+        Col.__init__(self, dt, name, **kw)
+
+    def search(self, qs):
+        return Entry.sd.startswith(qs)
+
+    def format(self, item):
+        return (item.sd or '').replace('_', ' ')
+
+
 class Entries(Parameters):
     def get_options(self):
         opts = super(Parameters, self).get_options()
@@ -132,8 +145,7 @@ class Entries(Parameters):
         return [
             DetailsRowLinkCol(self, 'more'),
             LinkCol(self, 'name', sTitle='Lemma'),
-            Col(self, 'semantic_domain',
-                choices=get_distinct_values(Entry.sd), model_col=Entry.sd),
+            SemanticDomainCol(self, 'semantic_domain'),
             Col(self, 'part_of_speech',
                 choices=get_distinct_values(Entry.ps), model_col=Entry.ps),
         ]
