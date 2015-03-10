@@ -1,3 +1,58 @@
+# coding: utf8
+from __future__ import unicode_literals
+
+from clld.util import slug
+
+
+_LANGUAGES = [
+    ('psc', 'Proto-Siouan-Catawba', None, 'siou1252', 'f0fff0'),
+    ('psi', 'Proto-Siouan', 'sio', 'core1249', 'f0fff0'),
+
+    ('pch', 'Proto-Crow-Hidatsa', None, 'miss1252', '87ceff'),
+    ('cr', 'Crow', 'cro', 'crow1244', 'b0e2ff'),
+    ('hi', 'Hidatasa', 'hid', 'hida1246', 'b0e2ff'),
+
+    ('pma', 'Proto-Mandan', None, None, '7fff00'),
+    ('ma', 'Mandan', 'mhq', 'mand1446', 'c0ff3e'),
+
+    ('pmv', 'Proto-Mississipi-Valley', None, 'miss1254', 'f0fff0'),
+
+    ('pda', 'Proto-Dakota', None, 'dako1257', 'ff83fa'),
+    ('la', 'Lakota', 'lkt', 'lako1247', 'ffbbff'),
+    ('da', 'Dakota', 'dak', 'dako1258', 'ffbbff'),
+    ('as', 'Assiniboine', 'asb', 'assi1247', 'ffbbff'),
+    ('ya', 'Yanktonai', 'dak', 'dako1258', 'ffbbff'),
+    ('sa', 'Santee-Sisseton', 'dak', 'dako1258', 'ffbbff'),
+    ('st', 'Stoney', 'sto', 'ston1242', 'ffbbff'),
+    ('sv', 'Sioux-Valley', None, None, 'ffbbff'),
+
+    ('pwc', 'Proto-Hoocąk-Chiwere', None, 'winn1245', 'ff0000'),
+    ('ch', 'Chiwere', 'iow', 'iowa1245', 'ff4500'),
+    ('io', 'Ioway', 'iow', 'iowa1245', 'ff4500'),
+    ('ot', 'Otoe', 'iow', 'iowa1245', 'ff4500'),
+    ('wi', 'Hoocąk', 'win', 'hoch1243', 'ff4500'),
+
+    ('pdh', 'Proto-Dhegiha', None, 'dheg1241', 'ffff00'),
+    ('om', 'Omaha', 'oma', 'omah1247', 'fff68f'),
+    ('op', 'Omaha-Ponca', 'oma', 'omah1247', 'fff68f'),
+    ('pn', 'Ponca', 'oma', 'omah12477', 'fff68f'),
+    ('po', 'Ponca', 'oma', 'omah1247', 'fff68f'),
+    ('ks', 'Kanza/Kaw', 'ksk', 'kans1243', 'fff68f'),
+    ('os', 'Osage', 'osa', 'osag1243', 'fff68f'),
+    ('qu', 'Quapaw', 'qua', 'quap1242', 'fff68f'),
+
+    ('pbo', 'Proto-Biloxi-Ofo', None, 'bilo1247', 'ffb90f'),
+    ('bi', 'Biloxi', 'bll', 'bilo1248', 'ffd700'),
+    ('of', 'Ofo', 'ofo', 'ofoo1242', 'ffd700'),
+    ('tu', 'Tutelo', 'tta', 'tute1247', 'ffd700'),
+    ('sp', 'Saponi', 'tta', 'tute1247', 'ffd700'),
+
+    ('pca', 'Proto-Catawba', None, 'cata1285', 'b5b5b5'),
+    ('ca', 'Catawba', 'chc', 'cata1286', 'b5b5b5'),
+    ('wo', 'Woccon', 'xwc', 'wocc1242', 'b5b5b5'),
+    ]
+
+
 SOURCES = {
     'N': 'Nikonha (Tutelo informant)',
     'AG': 'Albert S. Gatschet',
@@ -67,6 +122,14 @@ SOURCES = {
     'PA': 'PROTO-ALGONQUIAN',
     'MRH': 'Mary R. Haas',
 }
+
+
+def normalize_sid(sid):
+    return slug(sid.replace('+', 'and').replace('&', 'and'))
+
+for sid in list(SOURCES.keys()):
+    SOURCES[normalize_sid(sid)] = SOURCES[sid]
+
 
 SD = {
     'anml': 'animal',

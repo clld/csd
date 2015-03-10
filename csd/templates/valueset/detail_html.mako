@@ -11,10 +11,10 @@
     </h4>
     <table class="table table-nonfluid">
         <tbody>
-            % if value.altform:
+            % if value.phonetic:
             <tr>
-                <th>Alternative form</th>
-                <td>${value.altform}</td>
+                <th>Phonetic Siouan</th>
+                <td>${value.phonetic}</td>
             </tr>
             % endif
             <tr>
@@ -22,9 +22,15 @@
                 <td>${value.description}</td>
             </tr>
             % if value.comment:
+                <tr>
+                    <th>Comment</th>
+                    <td>${value.comment}</td>
+                </tr>
+            % endif
+            % if value.original_entry:
             <tr>
-                <th>Comment</th>
-                <td>${value.comment}</td>
+                <th>Original entry</th>
+                <td>${value.original_entry}</td>
             </tr>
             % endif
             % if value.references:

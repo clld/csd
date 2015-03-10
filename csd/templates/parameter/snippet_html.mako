@@ -14,8 +14,8 @@
         <span style="font-variant: small-caps; background-color: #${vs.language.color};">${vs.language.name}</span>
         % for value in vs.values:
             ${u.markup_form(value.name)}
-            % if value.altform:
-                <span>“${u.markup_form(value.altform)}”</span>
+            % if value.phonetic:
+                <span>“${u.markup_form(value.phonetic)}”</span>
             % endif
             % if value.description:
             <span>‘${value.description}’</span>

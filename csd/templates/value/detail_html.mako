@@ -13,18 +13,44 @@
 
 <h2>${_('Value')} ${ctx.name}</h2>
 
-<dl>
-    <dt>Language:</dt>
-    <dd>${h.link(request, ctx.valueset.language)}</dd>
-    <dt>Parameter:</dt>
-    <dd>${h.link(request, ctx.valueset.parameter)}</dd>
-    % if ctx.valueset.references:
-        <dt>References</dt>
-        <dd>${h.linked_references(request, ctx.valueset)|n}</dd>
-    % endif
-    % for k, v in ctx.datadict().items():
-        <dt>${k}</dt>
-        <dd>${v}</dd>
-    % endfor
-</dl>
+<table class="table table-nonfluid">
+    <tbody>
+    <tr>
+        <th>Language</th>
+        <td>${h.link(request, ctx.valueset.language)}</td>
+    </tr>
+    <tr>
+        <th>Entry</th>
+        <td>${h.link(request, ctx.valueset.parameter)}</td>
+    </tr>
+        % if ctx.phonetic:
+            <tr>
+                <th>Phonetic Siouan</th>
+                <td>${ctx.phonetic}</td>
+            </tr>
+        % endif
+    <tr>
+        <th>Meaning</th>
+        <td>${ctx.description}</td>
+    </tr>
+        % if ctx.comment:
+            <tr>
+                <th>Comment</th>
+                <td>${ctx.comment}</td>
+            </tr>
+        % endif
+        % if ctx.original_entry:
+            <tr>
+                <th>Original entry</th>
+                <td>${ctx.original_entry}</td>
+            </tr>
+        % endif
+        % if ctx.valueset.references:
+            <tr>
+                <th>Sources</th>
+                <td>${h.linked_references(request, ctx.valueset)|n}</td>
+            </tr>
+        % endif
+    </tbody>
+</table>
 

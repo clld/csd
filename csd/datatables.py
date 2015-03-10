@@ -12,7 +12,7 @@ from clld.db.util import get_distinct_values, icontains, collkey
 from clld.db.models.common import ValueSet, Value, Language, Parameter
 
 from csd.models import Counterpart, Languoid, Entry
-from csd.util import markup_form
+from csd.util import markup_form, markup_italic
 
 
 class RefsCol(Col):
@@ -59,6 +59,19 @@ class CognateCol(LinkCol):
         return collkey(Value.name)
 
 
+class PhoneticCol(Col):
+    __kw__ = {'sTitle': 'Phonetic Siouan'}
+
+    def format(self, item):
+        return markup_form(item.phonetic)
+
+    def search(self, qs):
+        return icontains(Value.phonetic, qs)
+
+    def order(self):
+        return collkey(Value.phonetic)
+
+
 class Counterparts(Values):
     def get_options(self):
         opts = super(Values, self).get_options()
@@ -80,39 +93,27 @@ class Counterparts(Values):
     def col_defs(self):
         get_param = lambda v: v.valueset.parameter
         get_lang = lambda v: v.valueset.language
+        core = [
+            CognateCol(self, 'name'),
+            PhoneticCol(self, 'phonetic'),
+            Col(self, 'description', sTitle='Meaning'),
+            Col(self, 'comment',
+                model_col=Counterpart.comment,
+                format=lambda i: markup_italic(i.comment)),
+        ]
         if self.language:
             return [
-                LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name),
-                CognateCol(self, 'name', get_object=lambda i: i.valueset),
-                Col(self, 'altform',
-                    model_col=Counterpart.altform, sTitle='Alternative form',
-                    format=lambda i: markup_form(i.altform)),
-                Col(self, 'description', sTitle='Meaning'),
-                Col(self, 'comment', model_col=Counterpart.comment),
-                RefsCol(self, 'sources'),
-            ]
+                LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name)] +\
+                core + [RefsCol(self, 'sources')]
         if self.parameter:
             return [
                 LanguageCol(
-                    self, 'language', model_col=Language.name, get_object=get_lang),
-                CognateCol(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
-                Col(self, 'altform',
-                    model_col=Counterpart.altform, sTitle='Alternative form',
-                    format=lambda i: markup_form(i.altform)),
-                Col(self, 'description', sTitle='Meaning'),
-                Col(self, 'comment', model_col=Counterpart.comment),
-                RefsCol(self, 'sources'),
-            ]
+                    self, 'language', model_col=Language.name, get_object=get_lang)] +\
+                core + [RefsCol(self, 'sources')]
         return [
             LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name),
-            LanguageCol(self, 'language', model_col=Language.name, get_object=get_lang),
-            CognateCol(self, 'name', sTitle='Cognate', format=lambda i: markup_form(i.name)),
-            Col(self, 'altform',
-                model_col=Counterpart.altform, sTitle='Alternative form',
-                format=lambda i: markup_form(i.altform)),
-            Col(self, 'description', sTitle='Meaning'),
-            Col(self, 'comment', model_col=Counterpart.comment),
-        ]
+            LanguageCol(self, 'language', model_col=Language.name, get_object=get_lang)] +\
+            core
 
 
 class Entries(Parameters):

@@ -28,6 +28,17 @@
 <p>${u.insert_language_links(request, ctx.description, languages)|n}</p>
 % endif
 
+% if ctx.othlgs:
+    <h4>Other languages</h4>
+    <ul class="unstyled">
+    % for chunk in ctx.othlgs.split('\n---\n'):
+    <li>
+        ${u.markup_italic(chunk)|n}
+    </li>
+    % endfor
+    </ul>
+% endif
+
 % if request.map:
     ${request.map.render()}
 % endif

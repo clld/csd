@@ -33,6 +33,7 @@ class Entry(CustomModelMixin, Parameter):
     pk = Column(Integer, ForeignKey('parameter.pk'), primary_key=True)
     ps = Column(Unicode)
     sd = Column(Unicode)
+    othlgs = Column(Unicode)
     contribution_pk = Column(Integer, ForeignKey('contribution.pk'))
     contribution = relationship(Contribution)
 
@@ -40,8 +41,9 @@ class Entry(CustomModelMixin, Parameter):
 @implementer(interfaces.IValue)
 class Counterpart(CustomModelMixin, Value):
     pk = Column(Integer, ForeignKey('value.pk'), primary_key=True)
-    altform = Column(Unicode)
+    phonetic = Column(Unicode)
     comment = Column(Unicode)
+    original_entry = Column(Unicode)
 
 
 class ValueReference(Base, HasSourceMixin):

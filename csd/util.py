@@ -5,7 +5,7 @@ from clld.interfaces import IRepresentation
 from clld.db.meta import DBSession
 from clld.db.models.common import Language
 from clld.web.util.helpers import link, button, icon
-from clld.web.util.htmllib import HTML
+from clld.web.util.htmllib import HTML, literal
 from clld.web.adapters import get_adapter
 
 
@@ -22,6 +22,22 @@ def markup_form(s):
         parts.append(match.group('word') + ':')
         pos = match.end()
     parts.append(HTML.i(s[pos:]))
+    return HTML.span(*parts)
+
+
+def markup_italic(s):
+    def bar_split(p):
+        return [HTML.i(pp) if j % 2 else pp for j, pp in enumerate(p.split('|'))]
+
+    if not s:
+        return s
+    parts = []
+    pos = 0
+    for match in META_LANG_PATTERN.finditer(s):
+        parts.extend(bar_split(s[pos:match.start()]))
+        parts.append(HTML.i(match.group('word')))
+        pos = match.end()
+    parts.extend(bar_split(s[pos:]))
     return HTML.span(*parts)
 
 
@@ -45,4 +61,4 @@ def insert_language_links(req, s, languages):
         return link(req, languages[m.group('id')])
 
     p = '(?P<id>%s)' % '|'.join(languages.keys())
-    return re.sub(p, repl, s)
+    return markup_italic(literal(re.sub(p, repl, s)))
