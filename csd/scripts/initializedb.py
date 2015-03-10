@@ -163,7 +163,11 @@ def main(args):
     def add_counterpart(d, vs, id, phonetic, cognate, me, cm, so, org):
         assert phonetic or cognate
         if not cognate:
-            cognate = '[%s]' % phonetic
+            if vs.language.proto:
+                cognate = '(%s)' % phonetic
+                phonetic = None
+            else:
+                cognate = '[%s]' % phonetic
         m = models.Counterpart(
             id=id,
             name=cognate,
