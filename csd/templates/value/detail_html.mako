@@ -25,7 +25,11 @@
     </tr>
         % if ctx.phonetic:
             <tr>
-                <th>Phonetic Siouan</th>
+                % if ctx.valueset.language.proto:
+                    <th>Alternative reconstruction</th>
+                % else:
+                    <th>Phonetic Siouan</th>
+                % endif
                 <td>${ctx.phonetic}</td>
             </tr>
         % endif
