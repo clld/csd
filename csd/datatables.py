@@ -47,7 +47,10 @@ class Languoids(Languages):
 
 
 class CognateCol(LinkCol):
-    __kw__ = {'sTitle': 'Cognate'}
+    def __init__(self, dt, name, **kw):
+        kw['sTitle'] = 'Reconstruction' if dt.language and dt.language.proto \
+            else 'Cognate'
+        LinkCol.__init__(self, dt, name, **kw)
 
     def get_attrs(self, item):
         return dict(label=markup_form(item.name))
@@ -60,7 +63,10 @@ class CognateCol(LinkCol):
 
 
 class PhoneticCol(Col):
-    __kw__ = {'sTitle': 'Phonetic Siouan'}
+    def __init__(self, dt, name, **kw):
+        kw['sTitle'] = 'Alternative reconstruction' if dt.language and dt.language.proto \
+            else 'Phonetic Siouan'
+        Col.__init__(self, dt, name, **kw)
 
     def format(self, item):
         return markup_form(item.phonetic)

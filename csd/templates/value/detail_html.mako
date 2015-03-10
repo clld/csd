@@ -11,7 +11,7 @@
     </%util:feed>
 </%def>
 
-<h2>${_('Value')} ${ctx.name}</h2>
+<h2>${_('Value')} <i>${ctx.name}</i></h2>
 
 <table class="table table-nonfluid">
     <tbody>

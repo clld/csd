@@ -10,7 +10,7 @@ _LANGUAGES = [
 
     ('pch', 'Proto-Crow-Hidatsa', None, 'miss1252', '87ceff'),
     ('cr', 'Crow', 'cro', 'crow1244', 'b0e2ff'),
-    ('hi', 'Hidatasa', 'hid', 'hida1246', 'b0e2ff'),
+    ('hi', 'Hidatsa', 'hid', 'hida1246', 'b0e2ff'),
 
     ('pma', 'Proto-Mandan', None, None, '7fff00'),
     ('ma', 'Mandan', 'mhq', 'mand1446', 'c0ff3e'),

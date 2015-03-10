@@ -117,13 +117,13 @@ def main(args):
             'license_name': 'Creative Commons Attribution 4.0 International License'})
     DBSession.add(dataset)
     contrib = common.Contribution(id='csd', name=dataset.name)
-
     for i, spec in enumerate([
+        ('Robert L. Rankin', True),
         ('Richard T. Carter', True),
         ('A. Wesley Jones', True),
-        ('Robert L. Rankin', True),
-        ('John E. Koontz', False),
-        ('David S. Rood', False),
+        ('John E. Koontz', True),
+        ('David S. Rood', True),
+        ('Iren Hartmann', True),
     ]):
         name, primary = spec
         c = common.Contributor(id=slug(name), name=name)
@@ -143,7 +143,7 @@ def main(args):
             name=v[1],
             ord=i,
             color=v[4],
-            proto=v[1].startswith('Proto-'),
+            proto=v[0].startswith('p') and len(v[0]) == 3,
             latitude=geocoords[v[2]][0],
             longitude=geocoords[v[2]][1])
         if v[2]:
