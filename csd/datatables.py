@@ -72,10 +72,10 @@ class PhoneticCol(Col):
         return markup_form(item.phonetic)
 
     def search(self, qs):
-        return icontains(Value.phonetic, qs)
+        return icontains(Counterpart.phonetic, qs)
 
     def order(self):
-        return collkey(Value.phonetic)
+        return collkey(Counterpart.phonetic)
 
 
 class Counterparts(Values):
