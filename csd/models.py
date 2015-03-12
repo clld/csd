@@ -43,7 +43,6 @@ class Counterpart(CustomModelMixin, Value):
     pk = Column(Integer, ForeignKey('value.pk'), primary_key=True)
     phonetic = Column(Unicode)
     comment = Column(Unicode)
-    alt_reconstruction = Column(Unicode)
     original_entry = Column(Unicode)
 
 

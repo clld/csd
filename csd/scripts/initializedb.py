@@ -162,14 +162,11 @@ def main(args):
 
     def add_counterpart(d, vs, id, phonetic, cognate, me, cm, so, org):
         assert phonetic or cognate
-        alt_reconstruction = None
         if vs.language.id == 'psi':
             if not cognate:
                 cognate = '(%s)' % phonetic
             else:
-                if phonetic:
-                    alt_reconstruction = phonetic
-                    print(id, alt_reconstruction)
+                assert not phonetic
             phonetic = None
 
         if not cognate:
@@ -185,7 +182,6 @@ def main(args):
             description=me or '[%s]' % vs.parameter.name,
             comment=cm,
             original_entry=org,
-            alt_reconstruction=alt_reconstruction,
             valueset=vs)
         if so:
             for sid in nfilter([s.strip() for s in SEP_PATTERN.split(so or '')]):
