@@ -10,6 +10,7 @@ from clld.web.util.helpers import linked_references, map_marker_img
 from clld.web.util.htmllib import HTML
 from clld.db.util import get_distinct_values, icontains, collkey
 from clld.db.models.common import ValueSet, Value, Language, Parameter
+from clld.util import nfilter
 
 from csd.models import Counterpart, Languoid, Entry
 from csd.util import markup_form, markup_italic
@@ -99,14 +100,15 @@ class Counterparts(Values):
     def col_defs(self):
         get_param = lambda v: v.valueset.parameter
         get_lang = lambda v: v.valueset.language
-        core = [
+        core = nfilter([
             CognateCol(self, 'name'),
-            PhoneticCol(self, 'phonetic'),
+            PhoneticCol(self, 'phonetic')
+            if not (self.language and self.language.proto) else None,
             Col(self, 'description', sTitle='Meaning'),
             Col(self, 'comment',
                 model_col=Counterpart.comment,
                 format=lambda i: markup_italic(i.comment)),
-        ]
+        ])
         if self.language:
             return [
                 LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name)] +\
