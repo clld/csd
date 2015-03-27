@@ -23,12 +23,6 @@
         <th>Entry</th>
         <td>${h.link(request, ctx.valueset.parameter)}</td>
     </tr>
-        % if ctx.alt_reconstruction:
-            <tr>
-                <th>Alternative reconstruction</th>
-                <td>${ctx.alt_reconstruction}</td>
-            </tr>
-        % endif
         % if ctx.phonetic:
             <tr>
                 % if ctx.valueset.language.proto:

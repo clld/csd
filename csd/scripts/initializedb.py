@@ -21,7 +21,7 @@ from csd import models
 from csd.scripts.util import PS, SD, SOURCES, _LANGUAGES, normalize_sid
 
 
-TXT = 'CSD_RLR_Master_version_25.txt'
+TXT = 'CSD_RLR_Master_version_26.txt'
 
 
 def normalize_comma_separated(s, d, lower=False):
@@ -44,6 +44,17 @@ SID_PATTERN = re.compile('(?P<key>JGT92|((\(|[a-zA-Z])[\)a-zA-Z\+\s&\./]*))((\-|
 class CsdEntry(Entry):
     def append(self, item):
         m, v = item
+        #try:
+            #assert len(v.split('|')) % 2 == 1
+            #assert len(v.split('"')) % 2 == 1
+            #assert v.count('(') == v.count(')')
+            #assert v.count('[') == v.count(']')
+            #assert v.count('{') == v.count('}')
+            #assert len(re.findall("(^|\s)'", v)) == len(re.findall("'($|\s)", v))
+        #except:
+            #print m
+            #print v.encode("utf8")
+            #print
         item = ({'psi': 'psioo', 'or': 'psi', 'or_org': 'psi_org', 'orso': 'psiso'}.get(m, m), v)
         Entry.append(self, item)
 
@@ -267,7 +278,28 @@ def prime_cache(args):
     This procedure should be separate from the db initialization, because
     it will have to be run periodically whenever data has been updated.
     """
-    #freeze_func(args)
+    entries = {e.name: e for e in DBSession.query(models.Entry)}
+    hit, miss = [], []
+
+    def repl(match):
+        label = match.group('lemma').strip()
+        if label.endswith(','):
+            label = label[:-1].strip()
+        if label in entries:
+            label = "**%s**" % entries[label].id
+            hit.append(label)
+        else:
+            print ("    '%s'" % label).encode('utf8')
+            miss.append(label)
+        return "‘%s’" % label
+
+    p = re.compile("‘(?P<lemma>[^’]+)’")
+    for entry in entries.values():
+        if entry.description:
+            print ('\\lx %s' % entry.name).encode('utf8')
+            entry.description = p.sub(repl, entry.description)
+    print 'hits:', len(hit)
+    print 'miss:', len(miss)
 
 
 if __name__ == '__main__':
