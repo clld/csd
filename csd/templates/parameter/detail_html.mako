@@ -19,13 +19,15 @@
 
 <h2>${ctx.name}</h2>
 
+##<p>${ctx.psi_reconstruction_with_root_extension_code}</p>
+
 <div id="dict-entry" style="margin-left: 2em; margin-right: 2em;">
     ${dict_entry.render(ctx, request)|n}
 </div>
 
 % if ctx.description:
 <h4>General comment</h4>
-<p>${u.insert_language_links(request, ctx.description, languages)|n}</p>
+<p>${u.insert_links(request, ctx.description)|n}</p>
 % endif
 
 % if ctx.othlgs:

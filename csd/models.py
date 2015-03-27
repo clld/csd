@@ -33,6 +33,7 @@ class Entry(CustomModelMixin, Parameter):
     pk = Column(Integer, ForeignKey('parameter.pk'), primary_key=True)
     ps = Column(Unicode)
     sd = Column(Unicode)
+    psi_reconstruction_with_root_extension_code = Column(Unicode)
     othlgs = Column(Unicode)
     contribution_pk = Column(Integer, ForeignKey('contribution.pk'))
     contribution = relationship(Contribution)
@@ -44,6 +45,7 @@ class Counterpart(CustomModelMixin, Value):
     phonetic = Column(Unicode)
     comment = Column(Unicode)
     original_entry = Column(Unicode)
+    other_reconstructions = Column(Unicode)
 
 
 class ValueReference(Base, HasSourceMixin):

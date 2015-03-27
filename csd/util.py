@@ -3,7 +3,7 @@ import re
 
 from clld.interfaces import IRepresentation
 from clld.db.meta import DBSession
-from clld.db.models.common import Language
+from clld.db.models.common import Language, Parameter
 from clld.web.util.helpers import link, button, icon
 from clld.web.util.htmllib import HTML, literal
 from clld.web.adapters import get_adapter
@@ -51,14 +51,21 @@ def comment_button(req, obj, class_=''):
 
 def parameter_detail_html(request=None, context=None, **kw):
     return {
-        'languages': {l.id.upper(): l for l in DBSession.query(Language)},
+        #'languages': {l.id.upper(): l for l in DBSession.query(Language)},
         'dict_entry': get_adapter(IRepresentation, context, request, ext='snippet.html'),
     }
 
 
-def insert_language_links(req, s, languages):
+def insert_links(req, s):
     def repl(m):
-        return link(req, languages[m.group('id')])
+        try:
+            int(m.group('id'))
+            cls = Parameter
+        except:
+            cls = Language
+        obj = cls.get(m.group('id').lower(), default=None)
+        if obj:
+            return link(req, cls.get(m.group('id').lower()))
+        return '---%s---' % m.group('id')
 
-    p = '(?P<id>%s)' % '|'.join(languages.keys())
-    return markup_italic(literal(re.sub(p, repl, s)))
+    return markup_italic(literal(re.sub('\*\*(?P<id>[A-Z0-9]+)\*\*', repl, s)))

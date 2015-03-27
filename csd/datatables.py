@@ -79,6 +79,11 @@ class PhoneticCol(Col):
         return collkey(Counterpart.phonetic)
 
 
+class RootExtCol(Col):
+    def format(self, item):
+        return item.valueset.parameter.psi_reconstruction_with_root_extension_code
+
+
 class Counterparts(Values):
     def get_options(self):
         opts = super(Values, self).get_options()
@@ -110,6 +115,15 @@ class Counterparts(Values):
                 format=lambda i: markup_italic(i.comment)),
         ])
         if self.language:
+            if self.language.id == 'psi':
+                return [
+                    LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name)] + \
+                    core + [
+                    RootExtCol(
+                        self,
+                        'reconstruction_with_root_extension_code',
+                        model_col=Entry.psi_reconstruction_with_root_extension_code),
+                    RefsCol(self, 'sources')]
             return [
                 LinkCol(self, 'lemma', get_object=get_param, model_col=Parameter.name)] +\
                 core + [RefsCol(self, 'sources')]

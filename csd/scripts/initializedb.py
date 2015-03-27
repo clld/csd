@@ -55,7 +55,12 @@ class CsdEntry(Entry):
             #print m
             #print v.encode("utf8")
             #print
-        item = ({'psi': 'psioo', 'or': 'psi', 'or_org': 'psi_org', 'orso': 'psiso'}.get(m, m), v)
+        item = ({
+                    #'psi': 'psioo',
+                    #'or': 'psi',
+                    #'or_org': 'psi_org',
+                    #'orso': 'psiso'
+                    }.get(m, m), v)
         Entry.append(self, item)
 
     def language_chunks(self):
@@ -166,19 +171,16 @@ def main(args):
         _l = set(nfilter(d.get(marker, [])))
         if _l:
             _l = list(_l)
-            if marker != 'oo':
+            if marker not in ['oo', 'or']:
                 assert len(_l) == 1
                 _l = _l[0]
             return _l
 
-    def add_counterpart(d, vs, id, phonetic, cognate, me, cm, so, org):
+    def add_counterpart(d, vs, id,
+                        phonetic,  # forms
+                        cognate,  # oo
+                        me, cm, so, org):
         assert phonetic or cognate
-        if vs.language.id == 'psi':
-            if not cognate:
-                cognate = '(%s)' % phonetic
-            else:
-                assert not phonetic
-            phonetic = None
 
         if not cognate:
             if vs.language.proto:
@@ -193,6 +195,7 @@ def main(args):
             description=me or '[%s]' % vs.parameter.name,
             comment=cm,
             original_entry=org,
+            other_reconstructions='; '.join(_get(d, 'or') or []) if vs.language.id == 'psi' else None,
             valueset=vs)
         if so:
             for sid in nfilter([s.strip() for s in SEP_PATTERN.split(so or '')]):
@@ -227,6 +230,7 @@ def main(args):
             name=pname,
             contribution=contrib,
             description=entry.get('com'),
+            psi_reconstruction_with_root_extension_code=entry.get('lxcm'),
             sd=normalize_comma_separated(entry.get('sd'), SD, lower=True),
             ps=normalize_comma_separated(entry.get('ps'), PS),
             othlgs='\n---\n'.join(entry.getall('othlgs')))
@@ -281,7 +285,7 @@ def prime_cache(args):
     entries = {e.name: e for e in DBSession.query(models.Entry)}
     hit, miss = [], []
 
-    def repl(match):
+    def lemma_repl(match):
         label = match.group('lemma').strip()
         if label.endswith(','):
             label = label[:-1].strip()
@@ -293,11 +297,18 @@ def prime_cache(args):
             miss.append(label)
         return "‘%s’" % label
 
-    p = re.compile("‘(?P<lemma>[^’]+)’")
+    lemma_pattern = re.compile("‘(?P<lemma>[^’]+)’")
+
+    def language_repl(m):
+        return '**%s**' % m.group('id')
+
+    language_pattern = re.compile('(?P<id>%s)' % '|'.join(k.upper() for k in LANGUAGES.keys()))
+
     for entry in entries.values():
         if entry.description:
             print ('\\lx %s' % entry.name).encode('utf8')
-            entry.description = p.sub(repl, entry.description)
+            entry.description = lemma_pattern.sub(lemma_repl, entry.description)
+            entry.description = language_pattern.sub(language_repl, entry.description)
     print 'hits:', len(hit)
     print 'miss:', len(miss)
 
