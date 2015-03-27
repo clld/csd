@@ -33,6 +33,12 @@
                 <td>${ctx.phonetic}</td>
             </tr>
         % endif
+        % if ctx.other_reconstructions:
+            <tr>
+                <th>Old reconstruction</th>
+                <td>${ctx.other_reconstructions}</td>
+            </tr>
+        % endif
     <tr>
         <th>Meaning</th>
         <td>${ctx.description}</td>
