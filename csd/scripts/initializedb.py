@@ -21,7 +21,7 @@ from csd import models
 from csd.scripts.util import PS, SD, SOURCES, _LANGUAGES, normalize_sid
 
 
-TXT = 'CSD_RLR_Master_version_26.txt'
+TXT = 'CSD_RLR_Master_version_27.txt'
 
 
 def normalize_comma_separated(s, d, lower=False):
@@ -282,22 +282,23 @@ def prime_cache(args):
     This procedure should be separate from the db initialization, because
     it will have to be run periodically whenever data has been updated.
     """
-    entries = {e.name: e for e in DBSession.query(models.Entry)}
+    entries = {e.name.lower(): e for e in DBSession.query(models.Entry)}
     hit, miss = [], []
 
     def lemma_repl(match):
         label = match.group('lemma').strip()
         if label.endswith(','):
             label = label[:-1].strip()
-        if label in entries:
-            label = "**%s**" % entries[label].id
+        lookup = re.sub('\s+', ' ', label.lower())
+        if lookup in entries:
+            label = "**%s**" % entries[lookup].id
             hit.append(label)
-        else:
+        elif match.group('cf'):
             print ("    '%s'" % label).encode('utf8')
             miss.append(label)
         return "‘%s’" % label
 
-    lemma_pattern = re.compile("‘(?P<lemma>[^’]+)’")
+    lemma_pattern = re.compile("(?P<cf>Cf\.\s*)?‘(?P<lemma>[^’]+)’", re.MULTILINE)
 
     def language_repl(m):
         return '**%s**' % m.group('id')
@@ -306,7 +307,7 @@ def prime_cache(args):
 
     for entry in entries.values():
         if entry.description:
-            print ('\\lx %s' % entry.name).encode('utf8')
+            #print ('\\lx %s' % entry.name).encode('utf8')
             entry.description = lemma_pattern.sub(lemma_repl, entry.description)
             entry.description = language_pattern.sub(language_repl, entry.description)
     print 'hits:', len(hit)
