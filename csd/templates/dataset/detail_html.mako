@@ -109,4 +109,5 @@ Rood, David S. and John E. Koontz.  2002. "The Comparative Siouan
 Dictionary Project".  In Frawley, William, Kenneth C. Hill and Pamela
 Monroe, eds.  Making Dictionaries: Preserving Indigenous Languages of
 the Americas, 259-281. Berkeley: Univ. of Calif. Press.
+<a href="${request.static_url('csd:static/Rood_Koontz_2002_CSD.pdf')}">[PDF]</a>
 </blockquote>
