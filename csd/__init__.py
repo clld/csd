@@ -23,7 +23,8 @@ class CsdMapMarker(MapMarker):
         elif ILanguage.providedBy(ctx):
             lang = ctx
         if lang:
-            return req.static_url('csd:static/icons/%s.png' % lang.color)
+            return req.static_url('csd:static/icons/%s%s.png' % (
+                't' if lang.proto else '', lang.color))
         return super(CsdMapMarker, self).__call__(ctx, req)
 
 

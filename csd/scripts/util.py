@@ -15,7 +15,7 @@ _LANGUAGES = [
     ('pma', 'Proto-Mandan', None, None, '7fff00'),
     ('ma', 'Mandan', 'mhq', 'mand1446', 'c0ff3e'),
 
-    ('pmv', 'Proto-Mississipi-Valley', None, 'miss1254', 'f0fff0'),
+    ('pmv', 'Proto-Mississipi-Valley', None, 'miss1254', 'ffbbff'),
 
     ('pda', 'Proto-Dakota', None, 'dako1257', 'ff83fa'),
     ('la', 'Lakota', 'lkt', 'lako1247', 'ffbbff'),
@@ -211,7 +211,7 @@ PS = {
     'NSuf': 'noun suffix',
     'Num': 'numeral',
     'Part': 'partitive',
-    'PassRefl':	'passive-reflexive',
+    'PassRefl': 'passive-reflexive',
     'Pl': 'plural',
     'Pos': 'positional',
     'Prf': 'perfect',
@@ -225,7 +225,7 @@ PS = {
     'Rcp': 'reciprocal',
     'Rdup': 'reduplication',
     'Refl': 'reflexive',
-    'ReflPoss':	'reflexive possessive',
+    'ReflPoss': 'reflexive possessive',
     'Rel': 'relative',
     'Sbj': 'subject',
     'Sg': 'singular',
