@@ -21,7 +21,7 @@
                 <span>‘${value.description}’</span>
                 % endif
                 % if value.comment:
-                <span style="font-size: smaller">[${value.comment}]</span>
+                <span style="font-size: smaller">[${u.markup_italic(value.comment)}]</span>
                 % endif
                 % if value.references:
                 <span style="color: gray;">
