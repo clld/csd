@@ -127,6 +127,7 @@ def main(args):
         publisher_place="Leipzig",
         publisher_url="http://www.eva.mpg.de",
         license="http://creativecommons.org/licenses/by/4.0/",
+        contact='iren.hartmann@gmail.com',
         domain='csd.clld.org',
         jsondata={
             'license_icon': 'cc-by.png',
