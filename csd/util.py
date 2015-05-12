@@ -69,3 +69,17 @@ def insert_links(req, s):
         return '---%s---' % m.group('id')
 
     return markup_italic(literal(re.sub('\*\*(?P<id>[A-Z0-9]+)\*\*', repl, s)))
+
+
+def tree(valuesets):
+    langs = set()
+    for vs in valuesets:
+        lang = vs.language
+        langs.add(lang)
+        while lang.parent and lang.parent not in langs:
+            langs.add(lang.parent)
+            lang = lang.parent
+    res = {l.id: [] for l in langs}
+    for vs in valuesets:
+        res[vs.language.id].append(vs)
+    return list(sorted(langs, key=lambda l: l.ord)), res

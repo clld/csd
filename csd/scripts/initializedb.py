@@ -158,12 +158,15 @@ def main(args):
             id=v[0],
             name=v[1],
             ord=i,
-            color=v[4],
+            color=v[4].lower(),
             proto=v[0].startswith('p') and len(v[0]) == 3,
             latitude=geocoords[v[2]][0],
-            longitude=geocoords[v[2]][1])
+            longitude=geocoords[v[2]][1],
+            parent=data['Languoid'].get(v[5]))
         if v[2]:
             add_language_codes(data, l, v[2], glottocodes=glottocodes)
+        if l.id == 'pn':
+            l.latitude, l.longitude = (42.75, -98.03)
 
     pnames = set()
 
@@ -312,6 +315,16 @@ def prime_cache(args):
             entry.description = language_pattern.sub(language_repl, entry.description)
     print 'hits:', len(hit)
     print 'miss:', len(miss)
+
+    def level(l):
+        _level = 0
+        while l.parent:
+            _level += 1
+            l = l.parent
+        return _level
+
+    for lang in DBSession.query(models.Languoid):
+        lang.level = level(lang)
 
 
 if __name__ == '__main__':

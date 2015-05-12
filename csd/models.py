@@ -26,6 +26,13 @@ class Languoid(CustomModelMixin, Language):
     ord = Column(Integer)
     color = Column(String)
     proto = Column(Boolean, default=False)
+    parent_pk = Column(Integer, ForeignKey('languoid.pk'))
+    children = relationship(
+        'Languoid',
+        order_by='Languoid.ord',
+        foreign_keys=[parent_pk],
+        backref=backref('parent', remote_side=[pk]))
+    level = Column(Integer)
 
 
 @implementer(interfaces.IParameter)

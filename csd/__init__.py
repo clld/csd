@@ -24,7 +24,7 @@ class CsdMapMarker(MapMarker):
             lang = ctx
         if lang:
             return req.static_url('csd:static/icons/%s%s.png' % (
-                't' if lang.proto else '', lang.color))
+                't' if lang.proto else 'c', lang.color))
         return super(CsdMapMarker, self).__call__(ctx, req)
 
 
