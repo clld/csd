@@ -27,7 +27,9 @@
 
 % if ctx.description:
 <h4>General comment</h4>
-<p>${u.insert_links(request, ctx.description)|n}</p>
+    % for p in u.insert_links(request, ctx.description).split('.\n'):
+        <p>${p|n}.</p>
+    % endfor
 % endif
 
 % if ctx.othlgs:
