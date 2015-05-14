@@ -302,7 +302,10 @@ def prime_cache(args):
         elif match.group('cf'):
             print ("    '%s'" % label).encode('utf8')
             miss.append(label)
-        return "‘%s’" % label
+        label = "‘%s’" % label
+        if match.group('cf'):
+            label = 'Cf. %s' % label
+        return label
 
     lemma_pattern = re.compile("(?P<cf>Cf\.\s*)?‘(?P<lemma>[^’]+)’", re.MULTILINE)
 
