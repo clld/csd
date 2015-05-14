@@ -168,6 +168,8 @@ def main(args):
             add_language_codes(data, l, v[2], glottocodes=glottocodes)
         if l.id == 'pn':
             l.latitude, l.longitude = (42.75, -98.03)
+        if l.id == 'op':
+            l.latitude, l.longitude = (43.5, -96.6)
 
     pnames = set()
 
