@@ -15,6 +15,7 @@
         <span style="font-variant: small-caps; padding-left: 2px; padding-right: 2px; border: 2px solid #${lang.color};">${lang.name}</span>
         % for vs in valuesets[lang.id]:
             % for value in vs.values:
+                ${'' if loop.first else ','}
                 ${u.markup_form(value.name)}
                 % if value.phonetic:
                     <span>“${u.markup_form(value.phonetic)}”</span>
@@ -28,7 +29,7 @@
                 % if value.references:
                 <span style="color: gray;">
                     % for ref in value.references:
-                    ${ref.source.name}${':' + ref.description if ref.description else ''},
+                    ${ref.source.name}${':' + ref.description if ref.description else ''}${'' if loop.last else ','}
                     % endfor
                 </span>
                 % endif
