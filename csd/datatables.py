@@ -6,6 +6,7 @@ from clld.web.datatables.base import Col, LinkCol, LinkToMapCol, DetailsRowLinkC
 from clld.web.datatables.value import Values
 from clld.web.datatables.language import Languages
 from clld.web.datatables.parameter import Parameters
+from clld.web.datatables.source import Sources
 from clld.web.util.helpers import linked_references, map_marker_img
 from clld.web.util.htmllib import HTML
 from clld.db.util import get_distinct_values, icontains, collkey
@@ -167,7 +168,13 @@ class Entries(Parameters):
         ]
 
 
+class Refs(Sources):
+    def col_defs(self):
+        return Sources.col_defs(self)[1:5]
+
+
 def includeme(config):
     config.register_datatable('values', Counterparts)
     config.register_datatable('parameters', Entries)
     config.register_datatable('languages', Languoids)
+    config.register_datatable('sources', Refs)
