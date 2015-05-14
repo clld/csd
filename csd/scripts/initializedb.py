@@ -240,6 +240,8 @@ def main(args):
             sd=normalize_comma_separated(entry.get('sd'), SD, lower=True),
             ps=normalize_comma_separated(entry.get('ps'), PS),
             othlgs='\n---\n'.join(entry.getall('othlgs')))
+        if meaning.description:
+            meaning.description = meaning.description.replace('.\n', '.\n\n')
 
         for lid, words in entry.get_words().items():
             vsid = '%s-%s' % (lid, meaning.id)
