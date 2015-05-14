@@ -20,7 +20,7 @@ _LANGUAGES = [
                     ('ya', 'Yanktonai', 'dak', 'dako1258', 'EE82EE', 'pda'),
                     ('sa', 'Santee-Sisseton', 'dak', 'dako1258', 'EE82EE', 'pda'),
                     ('st', 'Stoney', 'sto', 'ston1242', 'EE82EE', 'pda'),
-                    ('sv', 'Sioux-Valley', None, None, 'EE82EE', 'pda'),
+                    ('sv', 'Sioux Valley', None, None, 'EE82EE', 'pda'),
                 ('pwc', 'Proto-Hoocąk-Chiwere', None, 'winn1245', 'FF4500', 'pmv'),
                     ('ch', 'Chiwere', 'iow', 'iowa1245', 'FF7F50', 'pwc'),
                     ('io', 'Ioway', 'iow', 'iowa1245', 'FF7F50', 'pwc'),
