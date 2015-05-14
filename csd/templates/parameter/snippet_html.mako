@@ -19,7 +19,7 @@
                 % if value.phonetic:
                     <span>“${u.markup_form(value.phonetic)}”</span>
                 % endif
-                % if value.description:
+                % if value.description and value.description[1:-1] != ctx.name:
                 <span>‘${value.description}’</span>
                 % endif
                 % if value.comment:
