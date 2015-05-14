@@ -1,15 +1,17 @@
 <% langs, valuesets = u.tree(ctx.valuesets) %>
-<p class='entry'>
+<div class='entry'>
     ##<b style="font-size: larger">${ctx.name}</b><br/>
+    <p>
     % if ctx.ps:
         <i>${ctx.ps}</i>
     % endif
     % if ctx.sd:
         <span style="font-variant: small-caps">${ctx.sd}</span>
     % endif
-    <br/>
+    </p>
     % for lang in langs:
-        ${'&nbsp;' * 2 * lang.level|n}
+        ##${'&nbsp;' * 2 * lang.level|n}
+            <p style="margin-bottom: 2px; margin-left: ${lang.level}em">
         <span style="font-variant: small-caps; padding-left: 2px; padding-right: 2px; border: 2px solid #${lang.color};">${lang.name}</span>
         % for vs in valuesets[lang.id]:
             % for value in vs.values:
@@ -32,6 +34,6 @@
                 % endif
             % endfor
         % endfor
-        <br/>
+        </p>
     % endfor
-</p>
+</div>
