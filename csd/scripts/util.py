@@ -10,7 +10,7 @@ _LANGUAGES = [
             ('pch', 'Proto-Crow-Hidatsa', None, 'miss1252', '87CEEB', 'psi'),
                 ('cr', 'Crow', 'cro', 'crow1244', 'ADD8E6', 'pch'),
                 ('hi', 'Hidatsa', 'hid', 'hida1246', 'ADD8E6', 'pch'),
-            ('pma', 'Proto-Mandan', None, None, '2E8B57', 'psi'),
+            ('pma', 'Pre-Mandan', None, None, '2E8B57', 'psi'),
                 ('ma', 'Mandan', 'mhq', 'mand1446', '3CB371', 'pma'),
             ('pmv', 'Proto-Mississipi-Valley', None, 'miss1254', 'BA55D3', 'psi'),
                 ('pda', 'Proto-Dakota', None, 'dako1257', 'DA70D6', 'pmv'),
