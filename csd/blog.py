@@ -73,4 +73,4 @@ class Blog(object):
             return self.url(obj)
         res = self._post_url(obj)
         if res:
-            return res.url + 'feed'
+            return res.url + 'feed/'
