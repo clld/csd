@@ -18,7 +18,8 @@
                 ${'' if loop.first else ','}
                 ${u.markup_form(value.name)}
                 % if value.phonetic:
-                    <span>“${u.markup_form(value.phonetic)}”</span>
+                    ##<span>“${u.markup_form(value.phonetic)}”</span>
+                    , ${u.markup_form(value.phonetic)}
                 % endif
                 % if value.description and value.description[1:-1] != ctx.name:
                 <span>‘${value.description}’</span>
