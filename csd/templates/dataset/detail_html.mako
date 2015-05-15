@@ -36,7 +36,7 @@
 ##    David S. Rood
 ##</p>
 <div style="text-align: center;">
-    <h3>Introduction to the Comparative Siouan Dictionary</h3>
+    <h3>Introduction</h3>
     <h5>
         David S. Rood<br/>
         University of Colorado<br/>
