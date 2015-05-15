@@ -47,9 +47,10 @@
 <p>
     This dictionary is a work in progress. It will probably always be a work in progress.
     However, it represents a vast amount of time and effort by a large number of people, and
-    all of us agree that it should be made available to other interested people now.  While
-    the original data set will be preserved in its most recent stage and cannot be changed,
-    there is a way  for you to make additions by leaving comments and your thoughts via our
+    all of us agree that it should be made available to other interested people now.
+    While the original data set will be preserved in the form in which the editors,
+    especially Rankin, left it and cannot be changed, there is a way
+    for you to make additions by leaving comments and your thoughts via our
     commenting feature.  Of course we also  encourage you to mine it for information which
     should be double checked before it is utilized.  The attached paper
     (<a href="#rankin-1998">Rankin et al. 1998</a>)
