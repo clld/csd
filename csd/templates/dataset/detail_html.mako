@@ -39,7 +39,7 @@
 <div style="text-align: center;">
     <h3>Introduction</h3>
     <h5>
-        David S. Rood<br/>
+        David S. Rood, Principal Investigator<br/>
         University of Colorado<br/>
         May 2015
     </h5>
@@ -294,9 +294,6 @@ and root extensions is presented in the dictionary on the “languages” page u
 meaning that the root was **ku, but in this form it has a pre-posed root extension “*s”
 and a post-posed root extension  “*h”. Users of the dictionary should feel free to make
 use of this proposal if they wish.
-</p>
-<p class="pull-right">
-    David S. Rood, Principal Investigator
 </p>
 
 <h4 style="clear: both">References</h4>

@@ -55,10 +55,10 @@
                 <td>${ctx.original_entry}</td>
             </tr>
         % endif
-        % if ctx.valueset.references:
+        % if ctx.references:
             <tr>
                 <th>Sources</th>
-                <td>${h.linked_references(request, ctx.valueset)|n}</td>
+                <td>${h.linked_references(request, ctx)|n}</td>
             </tr>
         % endif
     </tbody>

@@ -41,3 +41,10 @@
         </p>
     % endfor
 </div>
+
+% if ctx.description:
+<h4>General comment</h4>
+    % for p in u.insert_links(request, ctx.description).split('\n\n'):
+        <p>${p|n}</p>
+    % endfor
+% endif

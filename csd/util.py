@@ -3,10 +3,12 @@ import re
 
 from clld.interfaces import IRepresentation
 from clld.db.meta import DBSession
-from clld.db.models.common import Language, Parameter
-from clld.web.util.helpers import link, button, icon
+from clld.db.models.common import Language, Parameter, Value
+from clld.web.util.helpers import link, button, icon, get_referents
 from clld.web.util.htmllib import HTML, literal
 from clld.web.adapters import get_adapter
+
+from csd.models import ValueReference
 
 
 META_LANG_PATTERN = re.compile('\{(?P<word>[^\}]+)\}')
@@ -83,3 +85,9 @@ def tree(valuesets):
     for vs in valuesets:
         res[vs.language.id].append(vs)
     return list(sorted(langs, key=lambda l: l.ord)), res
+
+
+def source_detail_html(context=None, request=None, **kw):
+    q = DBSession.query(Value).join(ValueReference)\
+        .filter(ValueReference.source_pk == context.pk)
+    return dict(referents=q.all())
