@@ -10,7 +10,7 @@
 
 <h2>Comparative Siouan Dictionary</h2>
 
-<p class="lead" style="font-size: medium;">
+<p style="font-size: medium;">
     Compiled by:
     Richard T. Carter, Willem de Reuse, Randolph Graczyk, A. Wesley Jones,
     John E. Koontz. Robert L. Rankin, David S. Rood, Patricia A. Shaw, and Paul Voorhis,
