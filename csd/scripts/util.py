@@ -131,7 +131,7 @@ def get_sources(args):
         _sid = normalize_sid(sid)
         if _sid not in res:
             print('missing sid: %s' % sid)
-        res[_sid] = dict(citation=SOURCES[sid], Name=sid, title=SOURCES[sid])
+            res[_sid] = dict(citation=SOURCES[sid], Name=sid, title=SOURCES[sid])
 
     return res
 
