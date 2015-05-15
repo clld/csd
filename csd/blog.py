@@ -59,10 +59,17 @@ class Blog(object):
                 categories = [dict(name=obj.name, parent_id=entryCat)]
 
             prefix = 'Counterpart' if isinstance(obj, Counterpart) else 'Entry'
+            text = 'Discuss CSD %s <a href="%s">%s</a>' % (
+                prefix, req.resource_url(obj), obj.name)
+            if isinstance(obj, Counterpart):
+                text += ' for entry <a href="%s">%s</a> in language <a href="%s">%s</a>' \
+                        % (req.resource_url(obj.valueset.parameter),
+                           obj.valueset.parameter.name,
+                           req.resource_url(obj.valueset.language),
+                           obj.valueset.language.name)
             self.wp.create_post(
                 '%s %s' % (prefix, obj.name),
-                'Discuss CSD %s <a href="%s">%s</a>.' % (
-                    prefix, req.resource_url(obj), obj.name),
+                text + '.',
                 categories=categories,
                 published=True,
                 wp_slug=self.slug(obj))
