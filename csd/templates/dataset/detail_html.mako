@@ -294,8 +294,11 @@ meaning that the root was **ku, but in this form it has a pre-posed root extensi
 and a post-posed root extension  “*h”. Users of the dictionary should feel free to make
 use of this proposal if they wish.
 </p>
+<p class="pull-right">
+    David S. Rood, Principal Investigator
+</p>
 
-<h4>References</h4>
+<h4 style="clear: both">References</h4>
 <ul class="unstyled">
     <li id="jones-1990">
         <blockquote>
