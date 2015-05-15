@@ -18,10 +18,10 @@ from clld.util import nfilter, slug
 
 import csd
 from csd import models
-from csd.scripts.util import PS, SD, SOURCES, _LANGUAGES, normalize_sid
+from csd.scripts.util import PS, SD, _LANGUAGES, normalize_sid, get_sources
 
 
-TXT = 'CSD_RLR_Master_version_27.txt'
+TXT = 'CSD_RLR_Master_version_28final.txt'
 
 
 def normalize_comma_separated(s, d, lower=False):
@@ -108,6 +108,7 @@ with_collkey_ddl()
 
 
 def main(args):
+    sources = get_sources(args)
     Index('ducet1', collkey(common.Value.name)).create(DBSession.bind)
     Index('ducet2', collkey(models.Counterpart.phonetic)).create(DBSession.bind)
     data = Data()
@@ -213,8 +214,19 @@ def main(args):
                 sid = normalize_sid(match.group('key'))
                 source = data['Source'].get(sid)
                 if not source:
-                    source = data.add(
-                        common.Source, sid, id=sid, name=SOURCES.get(sid) or name)
+                    if sid in sources:
+                        s = sources[sid]
+                        source = data.add(
+                            common.Source, sid,
+                            id=sid,
+                            name=s['Name'],
+                            description=s.get('Title', s['citation']),
+                            author=s.get('Author'),
+                            title=s.get('Title'),
+                            year=s.get('Year'),
+                        )
+                    else:
+                        source = data.add(common.Source, sid, id=sid, name=name)
                 m.references.append(models.ValueReference(
                     source=source, description=match.group('pages')))
 

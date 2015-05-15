@@ -169,6 +169,11 @@ class Entries(Parameters):
 
 
 class Refs(Sources):
+    def get_options(self):
+        opts = super(Sources, self).get_options()
+        opts['aaSorting'] = [[0, 'asc']]
+        return opts
+
     def col_defs(self):
         return Sources.col_defs(self)[1:5]
 

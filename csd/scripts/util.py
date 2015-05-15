@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from clld.util import slug
+from clld.lib.dsv import reader
 
 
 _LANGUAGES = [
@@ -22,7 +23,8 @@ _LANGUAGES = [
                     ('sv', 'Sioux Valley', None, None, 'EE82EE', 'pda'),
                 ('pwc', 'Proto-Hoocąk-Chiwere', None, 'winn1245', 'FF4500', 'pmv'),
                     ('ch', 'Chiwere', 'iow', 'iowa1245', 'FF7F50', 'pwc'),
-                    ('io', 'Ioway', 'iow', 'iowa1245', 'FF7F50', 'pwc'),
+                    #('io', 'Ioway', 'iow', 'iowa1245', 'FF7F50', 'pwc'),
+                    ('mo', 'Missouria', None, 'miss1249', 'FF7F50', 'pwc'),
                     ('ot', 'Otoe', 'iow', 'iowa1245', 'FF7F50', 'pwc'),
                     ('wi', 'Hoocąk', 'win', 'hoch1243', 'FF7F50', 'pwc'),
                 ('pdh', 'Proto-Dhegiha', None, 'dheg1241', 'FFA500', 'pmv'),
@@ -118,8 +120,20 @@ SOURCES = {
 def normalize_sid(sid):
     return slug(sid.replace('+', 'and').replace('&', 'and'))
 
-for sid in list(SOURCES.keys()):
-    SOURCES[normalize_sid(sid)] = SOURCES[sid]
+
+def get_sources(args):
+    res = {}
+
+    for d in reader(args.data_file('sources_CSD.csv'), delimiter=',', dicts=True):
+        res[normalize_sid(d['Abbreviation'])] = d
+
+    for sid in list(SOURCES.keys()):
+        _sid = normalize_sid(sid)
+        if _sid not in res:
+            print('missing sid: %s' % sid)
+        res[_sid] = dict(citation=SOURCES[sid], Name=sid, title=SOURCES[sid])
+
+    return res
 
 
 SD = {
