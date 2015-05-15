@@ -16,10 +16,12 @@
         % for vs in valuesets[lang.id]:
             % for value in vs.values:
                 ${'' if loop.first else ','}
-                ${u.markup_form(value.name)}
+                % if not value.phonetic or value.name[1:-1] != value.phonetic:
+                    ${u.markup_form(value.name)}
+                % endif
                 % if value.phonetic:
                     ##<span>“${u.markup_form(value.phonetic)}”</span>
-                    , ${u.markup_form(value.phonetic)}
+                    ${', ' if value.name[1:-1] != value.phonetic else ''}${u.markup_form(value.phonetic)}
                 % endif
                 % if value.description and value.description[1:-1] != ctx.name:
                 <span>‘${value.description}’</span>
