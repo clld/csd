@@ -171,6 +171,8 @@ def main(args):
             l.latitude, l.longitude = (42.75, -98.03)
         if l.id == 'op':
             l.latitude, l.longitude = (43.5, -96.6)
+        if l.id == 'mo':
+            l.latitude, l.longitude = (40.05, -95.52)
 
     pnames = set()
 
