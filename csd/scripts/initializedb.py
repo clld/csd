@@ -221,14 +221,17 @@ def main(args):
                         source = data.add(
                             common.Source, sid,
                             id=sid,
-                            name=s['Name'],
+                            name=s['Name'].upper() if len(s['Name']) <= 3 else s['Name'],
                             description=s.get('Title', s['citation']),
                             author=s.get('Author'),
                             title=s.get('Title'),
                             year=s.get('Year'),
                         )
                     else:
-                        source = data.add(common.Source, sid, id=sid, name=name)
+                        source = data.add(
+                            common.Source, sid,
+                            id=sid,
+                            name=name.upper() if len(name) <= 3 else name)
                 m.references.append(models.ValueReference(
                     source=source, description=match.group('pages')))
 

@@ -168,6 +168,11 @@ class Entries(Parameters):
         ]
 
 
+class NameCol(LinkCol):
+    def get_attrs(self, item):
+        return {'label': item.name}
+
+
 class Refs(Sources):
     def get_options(self):
         opts = super(Sources, self).get_options()
@@ -175,7 +180,13 @@ class Refs(Sources):
         return opts
 
     def col_defs(self):
-        return Sources.col_defs(self)[1:5]
+        return [
+            #DetailsRowLinkCol(self, 'd'),
+            NameCol(self, 'name'),
+            Col(self, 'author'),
+            Col(self, 'description', sTitle='Title'),
+            Col(self, 'year'),
+        ]
 
 
 def includeme(config):
