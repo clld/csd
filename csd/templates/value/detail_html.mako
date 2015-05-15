@@ -11,7 +11,7 @@
     </%util:feed>
 </%def>
 
-<h2><i>${ctx.name}</i></h2>
+<h2>${u.markup_form(ctx.name)}</h2>
 
 <table class="table table-nonfluid">
     <tbody>
