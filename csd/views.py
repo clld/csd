@@ -5,7 +5,7 @@ from csd.models import Counterpart, Entry
 
 
 @view_config(route_name='comment', request_method='POST')
-def comment(request):
+def comment(request):  # pragma: no cover
     """check whether a blog post for the datapoint does exist.
 
     if not, create one and redirect there.

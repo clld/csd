@@ -4,7 +4,7 @@ from tempfile import NamedTemporaryFile
 
 try:
     from xhtml2pdf import pisa
-except ImportError:
+except ImportError:  # pragma: no cover
     class pisa(object):
         @staticmethod
         def CreatePDF(*args, **kw):
@@ -74,7 +74,7 @@ html_tmpl = """
 """
 
 
-class Pdf(Download):
+class Pdf(Download):  # pragma: no cover
     ext = 'pdf'
     description = "CSD as printable PDF file"
 

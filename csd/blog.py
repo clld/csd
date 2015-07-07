@@ -38,7 +38,7 @@ class Blog(object):
         except requests.Timeout:
             return
 
-    def post_url(self, obj, req, create=False):
+    def post_url(self, obj, req, create=False):  # pragma: no cover
         res = self._post_url(obj)
         if create and (not res or not self.wp.get_post_id_from_path(None, res=res)):
             # create categories if missing:
