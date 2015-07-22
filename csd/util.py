@@ -4,7 +4,7 @@ import re
 from clld.interfaces import IRepresentation
 from clld.db.meta import DBSession
 from clld.db.models.common import Language, Parameter, Value
-from clld.web.util.helpers import link, button, icon, get_referents
+from clld.web.util.helpers import link, button, icon
 from clld.web.util.htmllib import HTML, literal
 from clld.web.adapters import get_adapter
 
@@ -68,7 +68,7 @@ def insert_links(req, s):
         obj = cls.get(m.group('id').lower(), default=None)
         if obj:
             return link(req, cls.get(m.group('id').lower()))
-        return '---%s---' % m.group('id')
+        return '---%s---' % m.group('id')  # pragma: no cover
 
     return markup_italic(literal(re.sub('\*\*(?P<id>[A-Z0-9]+)\*\*', repl, s)))
 

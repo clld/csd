@@ -16,7 +16,7 @@ Run
     cd csd
     pip install -r requirements.txt
     python setup.py develop
-    python csd/scripts/unfreeze.py sqlite.ini
+    clld-unfreeze sqlite.ini
     pserve sqlite.ini
 
 or equivalent to start the csd web app accessible at

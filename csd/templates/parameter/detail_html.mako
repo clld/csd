@@ -19,17 +19,8 @@
 
 <h2>${ctx.name}</h2>
 
-##<p>${ctx.psi_reconstruction_with_root_extension_code}</p>
-
 <div id="dict-entry">
     ${dict_entry.render(ctx, request)|n}
-
-##% if ctx.description:
-##<h4>General comment</h4>
-##    % for p in u.insert_links(request, ctx.description).split('\n\n'):
-##        <p>${p|n}</p>
-##    % endfor
-##% endif
 
 % if ctx.othlgs:
     <h4>Other languages</h4>

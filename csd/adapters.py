@@ -1,6 +1,4 @@
 from __future__ import unicode_literals, print_function
-import os
-from tempfile import NamedTemporaryFile
 
 try:
     from xhtml2pdf import pisa
@@ -20,7 +18,6 @@ from clld.web.adapters.download import Download
 from clld.web.util.helpers import charis_font_spec_css
 
 from csd.util import markup_form
-import csd
 
 
 css_tmpl = """
