@@ -11,12 +11,6 @@
     </h4>
     <table class="table table-nonfluid">
         <tbody>
-            % if value.alt_reconstruction:
-                <tr>
-                    <th>Alternative reconstruction</th>
-                    <td>${value.alt_reconstruction}</td>
-                </tr>
-            % endif
             % if value.phonetic:
             <tr>
                 <th>Phonetic Siouan</th>
