@@ -1,8 +1,8 @@
 # coding: utf8
 from __future__ import unicode_literals
 
-from clld.util import slug
-from clld.lib.dsv import reader
+from clldutils.misc import slug
+from clldutils.dsv import reader
 
 
 _LANGUAGES = [

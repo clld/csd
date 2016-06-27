@@ -91,7 +91,7 @@ class Pdf(Download):  # pragma: no cover
             html.append(adapter.render(entry, req))
             html.append('<p class="separator">&nbsp;<p>')
     
-        with open(self.abspath(req), 'wb') as fp:
+        with open(self.abspath(req).as_posix(), 'wb') as fp:
             pisa.CreatePDF(
                 html_tmpl % (
                     css_tmpl.format(charis_font_spec_css()),

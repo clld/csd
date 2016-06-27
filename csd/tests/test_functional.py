@@ -1,7 +1,7 @@
 # coding=utf8
 from __future__ import unicode_literals
 
-from path import path
+from clldutils.path import Path
 
 from clld.tests.util import TestWithApp
 
@@ -9,8 +9,7 @@ import csd
 
 
 class Tests(TestWithApp):
-    __cfg__ = path(csd.__file__).dirname().joinpath('..', 'development.ini').abspath()
-    __setup_db__ = False
+    __cfg__ = Path(csd.__file__).parent.joinpath('..', 'development.ini').resolve()
 
     def test_home(self):
         self.app.get_html('/')
