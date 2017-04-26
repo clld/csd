@@ -23,7 +23,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'clld>=3.0.2',
+        'clld>=3.2.5',
         'clldmpg>=2.0.0',
     ],
     tests_require=[
