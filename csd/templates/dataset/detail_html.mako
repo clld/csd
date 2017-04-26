@@ -6,7 +6,7 @@
         ${h.newline2br(h.text_citation(request, ctx))|n}
         ${h.cite_button(request, ctx)}
     </%util:well>
-    ${util.feed('Latest Comments', request.blog.feed_url('comments/feed/', request), eid='comments')}
+    ${util.feed('Latest Comments', request.route_url('comments'), eid='comments')}
 </%def>
 
 <h2>Comparative Siouan Dictionary</h2>

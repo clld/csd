@@ -38,4 +38,5 @@ def main(global_config, **settings):
     config.registry.registerUtility(CsdMapMarker(), IMapMarker)
     config.registry.registerUtility(Blog(settings), IBlog)
     config.add_route('comment', '/comment/{type}/{id}')
+    config.add_route('comments', '/comments')
     return config.make_wsgi_app()
