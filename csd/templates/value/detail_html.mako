@@ -2,14 +2,6 @@
 <%namespace name="util" file="../util.mako"/>
 <%! active_menu_item = "values" %>
 
-<%def name="sidebar()">
-    <p>
-        ${u.comment_button(request, ctx)}
-    </p>
-    <%util:feed title="Comments" url="${request.blog.feed_url(ctx, request)}">
-        No comments have been posted.
-    </%util:feed>
-</%def>
 
 <h2>${u.markup_form(ctx.name)}</h2>
 

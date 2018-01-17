@@ -43,14 +43,6 @@ def markup_italic(s):
     return HTML.span(*parts)
 
 
-def comment_button(req, obj, class_=''):
-    return HTML.form(
-        button(icon('comment'), type='submit', class_=class_, title='comment'),
-        class_='inline',
-        method='POST',
-        action=req.route_url('comment', type=obj.__class__.__name__, id=obj.id))
-
-
 def parameter_detail_html(request=None, context=None, **kw):
     return {
         #'languages': {l.id.upper(): l for l in DBSession.query(Language)},

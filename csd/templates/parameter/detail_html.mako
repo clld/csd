@@ -10,9 +10,6 @@
         ${h.cite_button(request, ctx.contribution)}
     </li>
     <li style="padding-top: 3px; padding-right: 3px;">
-        ${u.comment_button(request, ctx)}
-    </li>
-    <li style="padding-top: 3px; padding-right: 3px;">
         ${h.alt_representations(request, ctx, doc_position='left')}
     </li>
 </ul>

@@ -5,7 +5,6 @@ from clld.interfaces import IMapMarker, IValue, IValueSet, ILanguage, IBlog
 
 # we must make sure custom models are known at database initialization!
 from csd import models
-from csd.blog import Blog
 
 
 _ = lambda s: s
@@ -36,7 +35,4 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.include('clldmpg')
     config.registry.registerUtility(CsdMapMarker(), IMapMarker)
-    config.registry.registerUtility(Blog(settings), IBlog)
-    config.add_route('comment', '/comment/{type}/{id}')
-    config.add_route('comments', '/comments')
     return config.make_wsgi_app()
