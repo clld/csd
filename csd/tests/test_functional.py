@@ -1,33 +1,29 @@
-# coding=utf8
-from __future__ import unicode_literals
+import pytest
 
-from clldutils.path import Path
-
-from clld.tests.util import TestWithApp
-
-import csd
+pytest_plugins = ['clld']
 
 
-class Tests(TestWithApp):
-    __cfg__ = Path(csd.__file__).parent.joinpath('..', 'development.ini').resolve()
-
-    def test_home(self):
-        self.app.get_html('/')
-        self.app.get_html('/languages')
-
-    def test_misc(self):
-        self.app.get_dt('/values?iSortingCols=1&iSortCol_0=3&sSearch_3=o')
-        self.app.get_dt('/values?parameter=1204&iSortingCols=2&iSortCol_0=0&sSearch_1=*&iSortCol_1=1')
-        self.app.get_dt('/values?language=op')
-        self.app.get_dt('/values?language=psi')
-        self.app.get_html('/valuesets/ch-828')
-        self.app.get_html('/sources/marten')
-        self.app.get_html('/sources')
-        self.app.get_dt('/sources')
-        self.app.get_html('/parameters')
-        self.app.get_dt('/parameters?sSearch_2=abstract')
-        self.app.get_html('/parameters/14')
-        self.app.get_html('/parameters/1178')
-        self.app.get_html('/parameters/1178.snippet.html')
-        self.app.get_json('/parameters/1178.geojson')
-        self.app.get_html('/languages/op.snippet.html?parameter=1201')
+@pytest.mark.parametrize(
+    "method,path",
+    [
+        ('get_html', '/'),
+        ('get_html', '/languages'),
+        ('get_dt', '/values?iSortingCols=1&iSortCol_0=3&sSearch_3=o'),
+        ('get_dt',
+         '/values?parameter=1204&iSortingCols=2&iSortCol_0=0&sSearch_1=*&iSortCol_1=1'),
+        ('get_dt', '/values?language=op'),
+        ('get_dt', '/values?language=psi'),
+        ('get_html', '/valuesets/ch-828'),
+        ('get_html', '/sources/marten'),
+        ('get_html', '/sources'),
+        ('get_dt', '/sources'),
+        ('get_html', '/parameters'),
+        ('get_dt', '/parameters?sSearch_2=abstract'),
+        ('get_html', '/parameters/14'),
+        ('get_html', '/parameters/1178'),
+        ('get_html', '/parameters/1178.snippet.html'),
+        ('get_json', '/parameters/1178.geojson'),
+        ('get_html', '/languages/op.snippet.html?parameter=1201'),
+    ])
+def test_pages(app, method, path):
+    getattr(app, method)(path)

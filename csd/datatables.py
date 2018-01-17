@@ -1,5 +1,3 @@
-import re
-
 from sqlalchemy.orm import joinedload
 
 from clld.web.datatables.base import Col, LinkCol, LinkToMapCol, DetailsRowLinkCol
@@ -11,7 +9,7 @@ from clld.web.util.helpers import linked_references, map_marker_img
 from clld.web.util.htmllib import HTML
 from clld.db.util import get_distinct_values, icontains, collkey
 from clld.db.models.common import ValueSet, Value, Language, Parameter
-from clld.util import nfilter
+from clldutils.misc import nfilter
 
 from csd.models import Counterpart, Languoid, Entry
 from csd.util import markup_form, markup_italic

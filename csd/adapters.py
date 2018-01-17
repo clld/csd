@@ -11,8 +11,7 @@ except ImportError:  # pragma: no cover
 from clld.db.meta import DBSession
 from clld.db.models.common import Parameter, Dataset
 from clld.web.adapters import get_adapter
-from clld.web.adapters.cldf import CldfDataset
-from clld.interfaces import IRepresentation, ICldfDataset, IContribution
+from clld.interfaces import IRepresentation
 from clld.interfaces import IParameter
 from clld.web.adapters.geojson import GeoJsonParameter
 from clld.web.adapters.download import Download

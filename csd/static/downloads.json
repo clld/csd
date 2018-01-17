@@ -1,0 +1,29 @@
+{
+    "1.0": {
+        "bitstreams": [
+            {
+                "last-modified": 1516201568795,
+                "checksum": "93cb55863a9599115ad1c0916814b0b1",
+                "created": 1516201568451,
+                "checksum-algorithm": "MD5",
+                "bitstreamid": "csd_dataset.cldf.zip",
+                "filesize": 2313611,
+                "content-type": "application/zip"
+            },
+            {
+                "last-modified": 1516201644035,
+                "checksum": "9b9e968d8266b4376b7f8f8cf5680fa8",
+                "created": 1516201643493,
+                "checksum-algorithm": "MD5",
+                "bitstreamid": "csd_dataset.pdf",
+                "filesize": 3873415,
+                "content-type": "application/pdf"
+            }
+        ],
+        "oid": "EAEA0-4C22-790A-0FFC-0",
+        "metadata": {
+            "title": "csd 1.0 - downloads",
+            "creator": "pycdstar"
+        }
+    }
+}
