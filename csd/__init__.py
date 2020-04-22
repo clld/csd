@@ -1,7 +1,8 @@
 from pyramid.config import Configurator
 
+from clldutils import svg
 from clld.web.app import MapMarker
-from clld.interfaces import IMapMarker, IValue, IValueSet, ILanguage, IBlog
+from clld.interfaces import IMapMarker, IValue, IValueSet, ILanguage
 
 # we must make sure custom models are known at database initialization!
 from csd import models
@@ -24,8 +25,7 @@ class CsdMapMarker(MapMarker):
         elif ILanguage.providedBy(ctx):
             lang = ctx
         if lang:
-            return req.static_url('csd:static/icons/%s%s.png' % (
-                't' if lang.proto else 'c', lang.color))
+            return svg.data_url(svg.icon(('t' if lang.proto else 'c') + lang.color))
         return super(CsdMapMarker, self).__call__(ctx, req)  # pragma: no cover
 
 

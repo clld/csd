@@ -1,9 +1,7 @@
-# coding: utf8
-from __future__ import unicode_literals
 import sys
 from collections import defaultdict
 import re
-from itertools import izip_longest
+from itertools import zip_longest as izip_longest
 
 from sqlalchemy import Index
 

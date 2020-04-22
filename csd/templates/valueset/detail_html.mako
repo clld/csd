@@ -7,7 +7,7 @@
 
 % for i, value in enumerate(ctx.values):
     <h4>
-        ${value.__unicode__()}
+        ${str(value)}
     </h4>
     <table class="table table-nonfluid">
         <tbody>

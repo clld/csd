@@ -1,4 +1,3 @@
-from __future__ import unicode_literals, print_function, absolute_import, division
 import re
 
 from clld.interfaces import IRepresentation

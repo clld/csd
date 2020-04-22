@@ -8,9 +8,8 @@ setup(
     long_description='',
     classifiers=[
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
@@ -23,8 +22,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'clld>=4.2.2',
-        'clldmpg>=3.3.1',
+        'clld>=5.1.1',
+        'clldmpg>=3.5',
         'sqlalchemy',
         'waitress'
     ],
@@ -37,7 +36,7 @@ setup(
             'mock',
             'psycopg2',
             'pytest>=3.1',
-            'pytest-clld',
+            'pytest-clld>=0.4',
             'pytest-mock',
             'pytest-cov',
             'coverage>=4.2',
