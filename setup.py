@@ -22,8 +22,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'clld>=5.1.1',
-        'clldmpg>=3.5',
+        'xhtml2pdf',
+        'clldmpg>=4.1.1',
+        'clld>=7.4.2',
         'sqlalchemy',
         'waitress'
     ],

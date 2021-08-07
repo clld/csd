@@ -111,39 +111,6 @@ class GeoJsonEntry(GeoJsonParameter):
             'label': ', '.join(markup_form(v.name) for v in valueset.values)}
 
 
-class CsdCldfConfig(CldfConfig):
-    def custom_schema(self, req, ds):
-        ds.add_columns('LanguageTable', {'name': 'Proto', 'datatype': 'boolean'})
-
-    #def query(self, model):
-        #q = CldfConfig.query(self, model)
-        #if model == Language:
-        #    q = q.options(joinedload(WalsLanguage.genus))
-        #return q
-
-    def convert(self, model, item, req):
-        #
-        # Parameter:
-        # - ps -> PoS
-        # - sd -> semantic domain
-        #
-        # Language:
-        # - parent_pk -> parent
-        # - proto
-        #
-        # Value:
-        #    phonetic = Column(Unicode)
-        #    comment = Column(Unicode)
-        #    original_entry = Column(Unicode)
-        #    other_reconstructions = Column(Unicode)
-        #
-        res = CldfConfig.convert(self, model, item, req)
-        if model == Language:
-            res.update(Proto=item.proto)
-        return res
-
-
 def includeme(config):
-    #config.register_download(Pdf(Dataset, 'csd'))
-    config.registry.registerUtility(CsdCldfConfig(), ICldfConfig)
+    config.register_download(Pdf(Dataset, 'csd'))
     config.register_adapter(GeoJsonEntry, IParameter)

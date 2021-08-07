@@ -10,7 +10,7 @@ from clld.web.adapters import get_adapter
 from csd.models import ValueReference
 
 
-META_LANG_PATTERN = re.compile('\{(?P<word>[^\}]+)\}')
+META_LANG_PATTERN = re.compile(r'{(?P<word>[^}]+)}')
 
 
 def markup_form(s):

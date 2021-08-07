@@ -1,24 +1,21 @@
-import sys
 from collections import defaultdict
 import re
 from itertools import zip_longest as izip_longest
 
 from sqlalchemy import Index
 
-from clld.scripts.util import (
-    initializedb, Data, add_language_codes, glottocodes_by_isocode,
-)
+from clld.cliutil import Data, add_language_codes
 from clld.db.meta import DBSession
 from clld.db.models import common
 from clld.db.util import with_collkey_ddl, collkey
-from clld.lib.sfm import Dictionary, Entry
-from clld.util import nfilter, slug
+from clldutils.sfm import Entry, SFM
+from clldutils.misc import nfilter, slug
 
 import csd
 from csd import models
 from csd.scripts.util import PS, SD, _LANGUAGES, normalize_sid, get_sources
 
-
+# From clld/csd-initial-data:
 TXT = 'CSD_RLR_Master_version_28final.txt'
 
 
@@ -111,11 +108,10 @@ def main(args):
     Index('ducet2', collkey(models.Counterpart.phonetic)).create(DBSession.bind)
     data = Data()
     glottocodes, geocoords = {}, defaultdict(lambda: (None, None))
-    for k, v in glottocodes_by_isocode(
-            'postgresql://robert@/glottolog3',
-            cols=['id', 'latitude', 'longitude']).items():
-        glottocodes[k] = v[0]
-        geocoords[k] = (v[1], v[2])
+    for gl in args.glottolog.languoids():
+        if gl.iso:
+            glottocodes[gl.iso] = gl.id
+            geocoords[gl.iso] = (gl.latitude, gl.longitude)
     geocoords['win'] = (43.50, -88.50)
 
     dataset = common.Dataset(
@@ -145,7 +141,7 @@ def main(args):
         c = common.Contributor(id=slug(name), name=name)
         dataset.editors.append(common.Editor(contributor=c, ord=i, primary=primary))
 
-    d = Dictionary(
+    d = SFM.from_file(
         args.data_file(TXT),
         entry_impl=CsdEntry,
         entry_sep='\\lx ')
@@ -287,7 +283,7 @@ def main(args):
 
                 if not looped:  # not oo
                     if not d['forms']:
-                        print '--->', d
+                        print('--->', d)
                         continue
                     add_counterpart(d,
                         vs,
@@ -336,8 +332,8 @@ def prime_cache(args):
             #print ('\\lx %s' % entry.name).encode('utf8')
             entry.description = lemma_pattern.sub(lemma_repl, entry.description)
             entry.description = language_pattern.sub(language_repl, entry.description)
-    print 'hits:', len(hit)
-    print 'miss:', len(miss)
+    print('hits:', len(hit))
+    print('miss:', len(miss))
 
     def level(l):
         _level = 0
@@ -348,8 +344,3 @@ def prime_cache(args):
 
     for lang in DBSession.query(models.Languoid):
         lang.level = level(lang)
-
-
-if __name__ == '__main__':
-    initializedb(create=main, prime_cache=prime_cache, bootstrap=True)
-    sys.exit(0)
