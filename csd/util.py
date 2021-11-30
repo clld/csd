@@ -61,7 +61,7 @@ def insert_links(req, s):
             return link(req, cls.get(m.group('id').lower()))
         return '---%s---' % m.group('id')  # pragma: no cover
 
-    return markup_italic(literal(re.sub('\*\*(?P<id>[A-Z0-9]+)\*\*', repl, s)))
+    return markup_italic(literal(re.sub(r'\*\*(?P<id>[A-Z0-9]+)\*\*', repl, s)))
 
 
 def tree(valuesets):
