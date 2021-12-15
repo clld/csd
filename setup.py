@@ -23,8 +23,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'xhtml2pdf',
+        'clld>=9',
         'clldmpg>=4.2',
-        'clld>=8',
         'sqlalchemy',
         'waitress'
     ],
@@ -34,7 +34,6 @@ setup(
             'tox'
         ],
         'test': [
-            'mock',
             'psycopg2',
             'pytest>=3.1',
             'pytest-clld>=0.4',
