@@ -7,7 +7,7 @@ from clld.web.datatables.parameter import Parameters
 from clld.web.datatables.source import Sources
 from clld.web.util.helpers import linked_references, map_marker_img
 from clld.web.util.htmllib import HTML
-from clld.db.util import get_distinct_values, icontains, collkey
+from clld.db.util import get_distinct_values, icontains
 from clld.db.models.common import ValueSet, Value, Language, Parameter
 from clldutils.misc import nfilter
 
@@ -59,7 +59,7 @@ class CognateCol(LinkCol):
         return icontains(Value.name, qs)
 
     def order(self):
-        return collkey(Value.name)
+        return Value.name
 
 
 class PhoneticCol(Col):
@@ -75,7 +75,7 @@ class PhoneticCol(Col):
         return icontains(Counterpart.phonetic, qs)
 
     def order(self):
-        return collkey(Counterpart.phonetic)
+        return Counterpart.phonetic
 
 
 class RootExtCol(Col):

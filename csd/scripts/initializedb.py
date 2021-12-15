@@ -7,7 +7,6 @@ from sqlalchemy import Index
 from clld.cliutil import Data, add_language_codes
 from clld.db.meta import DBSession
 from clld.db.models import common
-from clld.db.util import with_collkey_ddl, collkey
 from clldutils.sfm import Entry, SFM
 from clldutils.misc import nfilter, slug
 
@@ -99,13 +98,8 @@ class CsdEntry(Entry):
         return res
 
 
-with_collkey_ddl()
-
-
 def main(args):
     sources = get_sources(args)
-    Index('ducet1', collkey(common.Value.name)).create(DBSession.bind)
-    Index('ducet2', collkey(models.Counterpart.phonetic)).create(DBSession.bind)
     data = Data()
     glottocodes, geocoords = {}, defaultdict(lambda: (None, None))
     for gl in args.glottolog.languoids():
