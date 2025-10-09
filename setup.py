@@ -22,7 +22,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'xhtml2pdf',
         'clld>=9.2.1',
         'clldmpg>=4.2',
         'sqlalchemy',
