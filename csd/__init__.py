@@ -32,6 +32,11 @@ class CsdMapMarker(MapMarker):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    try:
+        from openobserve import openobserve_init
+        openobserve_init(logs=True)
+    except:
+        pass
     config = Configurator(settings=settings)
     config.include('clldmpg')
     config.registry.registerUtility(CsdMapMarker(), IMapMarker)
